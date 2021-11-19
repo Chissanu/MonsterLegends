@@ -63,7 +63,7 @@ class Player:
         self.greenSkills = data["greenSkills"]
         
         fh.close()
-                # Original Stats
+        # Original Stats
                 
         self.atkOG = self.atk
         self.armorOG = self.armor
@@ -73,7 +73,6 @@ class Player:
     
     def tick(self,Mon):
         self.round += 1
-        print(self.status)
         for key, val in self.status.items():    
             if self.status[key] > 0:
                 for key, val in self.status.items():
@@ -156,10 +155,6 @@ class Player:
                 self.dmgTaken = abs(self.armor - Mon.getAtk())
                 self.currentHp -= self.dmgTaken
             return False
-    
-    # Setters
-    def gainStat(self, amount):
-        self.stats += amount
     
     """
     ===============================================================
@@ -375,18 +370,23 @@ class Player:
             self.atk -= amount
         else:
             self.atk += amount
+        self.atkOG = self.atk
+        self.atkOG2 = self.atk
         
     def setArmor(self,mode,amount):
         if mode == "dec":
             self.armor -= amount
         else:
             self.armor += amount
+        self.armorOG = self.armor
+        self.armorOG2 = self.armor
     
     def setSpd(self,mode,amount):
         if mode == "dec":
             self.spd -= amount
         else:
             self.spd += amount
+        self.speedOG = self.spd
         
     def setLuck(self,mode,amount):
         if mode == "dec":

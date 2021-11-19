@@ -262,6 +262,7 @@ def increase(stat,charCreateMenu,remainStatsBox,textBox):
             print("Increase speed by One")    
     else:
         print("No more stats")
+    save()
         
 def decrease(stat,charCreateMenu,remainStatsBox,textBox):
     Char.setStats("inc",1)
@@ -292,6 +293,7 @@ def decrease(stat,charCreateMenu,remainStatsBox,textBox):
         luckText = "Luck:" + str(Char.getLuck())
         charCreateMenu.itemconfig(textBox, text=luckText)
         print("Decrease Luck by One")
+    save()
 
 def addPoint(root,previousFrame):
     xBox1, yBox1, xBox2, yBox2 = 100,150,300,200
@@ -463,28 +465,27 @@ def printSlow(myText):
         delay += delta
 
 def attack(playerHp,root):
-    update(root)
     if Mon.getCurrentHp() < 0:
         if Char.getDifficulty() == 1:
-            Char.gainStat(1)
+            Char.setStats("inc",1)
             Char.incMoney(20)
             gainStat = 1
             gainMon = 20
 
         elif Char.getDifficulty() == 2:
-            Char.gainStat(2)
+            Char.setStats("inc",2)
             Char.incMoney(40)
             gainStat = 2
             gainMon = 40
 
         elif Char.getDifficulty() == 3:
-            Char.gainStat(3)
+            Char.setStats("inc",3)
             Char.incMoney(60)
             gainStat = 3
             gainMon = 60
         
         elif Char.getDifficulty() == 4:
-            Char.gainStat(5)
+            Char.setStats("inc",4)
             Char.incMoney(100)
             gainStat = 5
             gainMon = 100
@@ -529,6 +530,8 @@ def attack(playerHp,root):
     update(root)
 
 def save():
+    print("Game Saved!")
+    print(Char.getSpd())
     path = os.path.dirname(os.path.abspath(__file__)) + "/saves"
     with open("saves/data.json", "r") as jsonFile:
         data = json.load(jsonFile)
@@ -540,6 +543,8 @@ def save():
     data["redSkills"] = Char.getRedSkill()
     data["blueSkills"] = Char.getBlueSkill()
     data["greenSkills"] = Char.getGreenSkill()
+    data["atk"] = Char.getAtk()
+    data["spd"] = Char.getSpd()
     
     with open("saves/data.json", "w") as jsonFile:
         json.dump(data, jsonFile,indent=4)

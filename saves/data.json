@@ -1,10 +1,10 @@
 {
-    "name": "asd",
-    "stats": 2,
+    "name": "ASD",
+    "stats": 0,
     "hp": 100,
-    "atk": 10,
+    "atk": 12,
     "def": 10,
-    "spd": 20,
+    "spd": 22,
     "luck": 5,
     "money": 180,
     "bag": {
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 80
+    "currentHp": 88
 }
