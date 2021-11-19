@@ -1,0 +1,9 @@
+TO BE FIXED!
+
+- If use 2 scrolls at the same time, the atk will be wrong **FIXED**
+- After purchased item or use skill the name will change to RED SCROLL 20G
+
+
+TO CHANGE BACK
+
+- self.dmgDone revert back to 1

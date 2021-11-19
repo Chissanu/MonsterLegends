@@ -1,0 +1,48 @@
+{
+    "name": "ads",
+    "stats": 23,
+    "hp": 100,
+    "atk": 10,
+    "def": 10,
+    "spd": 10,
+    "luck": 5,
+    "money": 280,
+    "bag": {
+        "Hp Potion": 0,
+        "Mp Potion": 0
+    },
+    "redSkills": {
+        "Common Bullet Storm": 0,
+        "Normal Bullet Storm": 0,
+        "Rare Bullet Storm": 0,
+        "Common Precision Strike": 0,
+        "Normal Precision Strike": 0,
+        "Rare Precision Strike": 0,
+        "Common Thunder Bolt": 0,
+        "Normal Thunder Bolt": 0,
+        "Rare Thunder Bolt": 0
+    },
+    "blueSkills": {
+        "Common Shield": 0,
+        "Normal Shield": 0,
+        "Rare Shield": 0,
+        "Common Spike Shield": 0,
+        "Normal Spike Shield": 0,
+        "Rare Spike Shield": 0
+    },
+    "greenSkills": {
+        "Common Heal": 0,
+        "Normal Heal": 0,
+        "Rare Heal": 0,
+        "Common Attack Up": 0,
+        "Normal Attack Up": 0,
+        "Rare Attack Up": 0,
+        "Common Armor Up": 0,
+        "Normal Armor Up": 0,
+        "Rare Armor up": 0,
+        "Common Speed Up": 0,
+        "Normal Speed Up": 0,
+        "Rare Speed up": 0
+    },
+    "currentHp": 61
+}
