@@ -363,6 +363,24 @@ class Player:
     
     def setDifficulty(self,mode):
         self.difficulty = mode
+        
+    def setHp(self,amount):
+        self.hp -= amount
+    
+    def setAtk(self,amount):
+        self.atk -= amount
+        
+    def setArmor(self,amount):
+        self.armor -= amount
+    
+    def setSpd(self,amount):
+        self.spd -= amount
+        
+    def setLuck(self,amount):
+        self.luck -= amount
+    
+    def setStats(self,amount):
+        self.stats -= amount
        
     # Getters
     def getStatus(self):

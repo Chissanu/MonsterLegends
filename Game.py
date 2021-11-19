@@ -114,6 +114,11 @@ def newGame(root,difficulty,endFrame):
 def goToShop(root,endFrame):
     endFrame.pack_forget()
     shop(root,endFrame)
+
+def goToStats(root,endFrame):
+    endFrame.pack_forget()
+    addPoint(root,endFrame)
+
     
     
 def endFrame(root):
@@ -133,8 +138,7 @@ def endFrame(root):
 
     shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("Helvetica", 15)).place(x=180, y=700)
     saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("Helvetica", 15)).place(x=800, y=900)
-    statBtn = Button(endCanvas, text="STATS",command="",width=30,font=("Helvetica", 15)).place(x=1440, y=700)
-
+    statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("Helvetica", 15)).place(x=1440, y=700)
 
     endFrame.pack(fill="both", expand=1)
     endCanvas.pack(fill="both", expand=1)
@@ -158,7 +162,6 @@ def useItem(itemName,playerHp,count,bagCanvas):
     bagCanvas.itemconfig(count, text=Char.getBag(itemName))
     save()
     
-
 def bag(root,playerHp):
     global imgList
     gameFrame.pack_forget()
@@ -222,6 +225,132 @@ def bag(root,playerHp):
     bagCanvas.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: goToGame(bagFrame,root))
     
+"""
+===============================================================
+                      Stat Frame
+===============================================================
+"""
+def increase(stat,charCreateMenu,remainStatsBox,textBox):
+    global stats,hp,atk,armor,spd,luck
+    if Char.getStats() >= 1:
+        Char.setStats(1)
+        remainStatsText = "Remaining:" + str(Char.getStats())
+        charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
+        if stat == "hp":     
+            Char.setHp(1)
+            hpText = "Health:" + str(Char.getHp())
+            charCreateMenu.itemconfig(textBox, text=hpText)
+            print("Increase HP by One")
+        elif stat == "atk":     
+            Char.setAtk(1)
+            atkText = "Attack:" + str(Char.getAtk())
+            charCreateMenu.itemconfig(textBox, text=atkText)
+            print("Increase Attack by One")
+        elif stat == "armor":     
+            Char.setArmor(1)
+            defText = "Defend:" + str(Char.getArmor())
+            charCreateMenu.itemconfig(textBox, text=defText)
+            print("Increase armor by One")
+        elif stat == "spd":     
+            Char.setSpd(1)
+            spdText = "Speed:" + str(Char.getSpd())
+            charCreateMenu.itemconfig(textBox, text=spdText)
+            print("Increase speed by One")
+        elif stat == "luck":     
+            Char.setLuck(1)
+            luckText = "Luck:" + str(Char.getSpd())
+            charCreateMenu.itemconfig(textBox, text=luckText)
+            print("Increase speed by One")    
+    else:
+        print("No more stats")
+        
+def decrease(stat,charCreateMenu,remainStatsBox,textBox):
+    remainStatsText = "Remaining:" + str(Char.getStats())
+    charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
+    if stat == "hp":     
+        Char.setHp(1)
+        hpText = "Health:" + str(Char.getHp())
+        charCreateMenu.itemconfig(textBox, text=hpText)
+        print("Decrease HP by One")
+    elif stat == "atk": 
+        Char.setAtk(1)
+        atkText = "Attack:" + str(Char.getAtk())
+        charCreateMenu.itemconfig(textBox, text=atkText)
+        print("Decrease Attack by One")
+    elif stat == "armor": 
+        Char.setArmor(1)
+        defText = "Defend:" + str(Char.getArmor())
+        charCreateMenu.itemconfig(textBox, text=defText)
+        print("Decrease Armor by One")
+    elif stat == "spd": 
+        Char.setSpd(1)
+        spdText = "Speed:" + str(Char.getSpd())
+        charCreateMenu.itemconfig(textBox, text=spdText)
+        print("Decrease Speed by One")
+    elif stat == "luck": 
+        Char.setLuck(1)
+        luckText = "Luck:" + str(Char.getLuck())
+        charCreateMenu.itemconfig(textBox, text=luckText)
+        print("Decrease Luck by One")
+
+def addPoint(root,previousFrame):
+    xBox1, yBox1, xBox2, yBox2 = 100,150,300,200
+    create = Frame(root,bg="#000000")
+    label1 = Label(create, text="STATS",foreground="cyan",bg="#318beb",font=("Helvetica", 40))
+    label1.pack(pady=20)
+
+    charCreateMenu = Canvas(create, bg="#b1d0f2",height=700,width=400)
+    charCreateMenu.create_window(200,100)
+
+    # Username Text Box
+    charNameText = charCreateMenu.create_text(200,80,text=Char.getName(),font=("Helvetica", 40))
+
+    # Remaining Stats Box
+    RemainStat = charCreateMenu.create_rectangle(xBox1, yBox1, xBox2, yBox2, fill="#ffffff")
+    remainStatsText = "Remaining:" + str(Char.getStats())
+    remainStatsBox = charCreateMenu.create_text(200,175,text=remainStatsText,font=("Helvetica", 20))
+
+    # Remaining Health Stats
+    charCreateMenu.create_rectangle(xBox1, yBox1 + 80, xBox2, yBox2 + 80, fill="#ffffff")
+    hpText = "Health:" + str(Char.getHp())
+    hpTextBox = charCreateMenu.create_text(200,255,text=hpText,font=("Helvetica", 20))
+    hpButtonIncrease = Button(create, text=" + ", command=lambda:increase("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.56, rely=0.325)
+    hpButtonDecrease = Button(create, text=" - ", command=lambda:decrease("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.43, rely=0.325)
+
+    # Remaining Attack Stats
+    charCreateMenu.create_rectangle(xBox1, yBox1 + 160, xBox2, yBox2 + 160, fill="#ffffff")
+    atkText = "Attack:" + str(Char.getAtk())
+    atkTextBox = charCreateMenu.create_text(200,335,text=atkText,font=("Helvetica", 20))
+    atkButtonIncrease = Button(create, text=" + ", command=lambda:increase("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.56, rely=0.398)
+    atkButtonDecrease = Button(create, text=" - ", command=lambda:decrease("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.43, rely=0.398)
+
+    # Remaining Defend Stats
+    charCreateMenu.create_rectangle(xBox1, yBox1 + 240, xBox2, yBox2 + 240, fill="#ffffff")
+    defText = "Defend:" + str(Char.getArmor())
+    defTextBox = charCreateMenu.create_text(200,415,text=defText,font=("Helvetica", 20))
+    defButtonIncrease = Button(create, text=" + ", command=lambda:increase("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.56, rely=0.471)
+    defButtonDecrease = Button(create, text=" - ", command=lambda:decrease("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.43, rely=0.471)
+
+    # Remaining Speed Stats
+    charCreateMenu.create_rectangle(xBox1, yBox1 + 320, xBox2, yBox2 + 320, fill="#ffffff")
+    spdText = "Speed:" + str(Char.getSpd())
+    spdTextBox = charCreateMenu.create_text(200,495,text=spdText,font=("Helvetica", 20))
+    spdButtonIncrease = Button(create, text=" + ", command=lambda:increase("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.56, rely=0.544)
+    spdButtonDecrease = Button(create, text=" - ", command=lambda:decrease("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.43, rely=0.544)
+    
+    # Remaining Luck Stats
+    charCreateMenu.create_rectangle(xBox1, yBox1 + 400, xBox2, yBox2 + 400, fill="#ffffff")
+    luckText = "Luck:" + str(Char.getLuck())
+    luckTextBox = charCreateMenu.create_text(200,575,text=luckText,font=("Helvetica", 20))
+    luckButtonIncrease = Button(create, text=" + ", command=lambda:increase("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.56, rely=0.618)
+    luckButtonDecrease = Button(create, text=" - ", command=lambda:decrease("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.43, rely=0.618)
+
+    backBtn = Button(create,text=" Back ",font=("Helvetica", 15), command= lambda: back(create,previousFrame,root)).place(x=1075,y=760)
+
+    
+    
+    charCreateMenu.pack()
+    create.pack(fill="both", expand=1)
 
 """
 ===============================================================
@@ -324,7 +453,6 @@ def update(root):
     gameCanvas.itemconfig(playerDef, text=playerDefText)
     gameCanvas.itemconfig(playerSpd, text=playerSpdText)
     
-
 def printSlow(myText):
     delta = 50
     delay = 0
@@ -334,29 +462,17 @@ def printSlow(myText):
         gameCanvas.after(delay,newText)
         delay += delta
 
-
 def attack(playerHp,root):
     if Mon.getCurrentHp() > 0:
         turn = Char.attack(Mon)
-        
+        gainStat = 0
+        gainMon = 0
         # Change HP text
         monHpText = "HP: " + str(Mon.getCurrentHp()) + "/" + str(Mon.getHp())
         playerHpText = "HP:" + str(Char.getCurrentHp()) + "/" + str(Char.getHp())
         if turn == True:
             if Mon.getCurrentHp() <= 0:
-                # text = "You defeated a " + str(Mon.getName()) + "!"
-                # printSlow(text)
-                money = 0
-                stat = 0
-                if Char.getDifficulty() == 1:
-                    money = 20
-                    stat = 2   
-                elif Char.getDifficulty() == 2:
-                    money = 40
-                    stat = 4
-                elif Char.getDifficulty() == 3:
-                    money = 60
-                    stat = 6
+                pass
             else:
                 dmgText = " - " + str(Char.getDmgDone())
                 dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("Comic Sans MS", 36,"bold italic"))
@@ -377,27 +493,35 @@ def attack(playerHp,root):
         print("Mon HP is ", Mon.getCurrentHp())
         print("Player HP is ", Char.getCurrentHp())
         print("================")
-        moneyText = "You gained " + str(money) +"G and " + str(stat) + " stat point!"
-        printSlow(moneyText)
     else:
         if Char.getDifficulty() == 1:
             Char.gainStat(1)
             Char.incMoney(20)
+            gainStat = 1
+            gainMon = 20
 
         elif Char.getDifficulty() == 2:
             Char.gainStat(2)
             Char.incMoney(40)
+            gainStat = 2
+            gainMon = 40
 
         elif Char.getDifficulty() == 3:
             Char.gainStat(3)
             Char.incMoney(60)
+            gainStat = 3
+            gainMon = 60
         
         elif Char.getDifficulty() == 4:
             Char.gainStat(5)
             Char.incMoney(100)
+            gainStat = 5
+            gainMon = 100
             
     save()
     update(root)
+    moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
+    printSlow(moneyText)
     endFrame(root)
 
 def save():
