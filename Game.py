@@ -95,7 +95,6 @@ def skill(root,previousFrame):
         y5 += 30
     
     backBtn = Button(skillCanvas,text=" Back ",font=("Helvetica", 15), command= lambda: back(skillFrame,previousFrame,root)).place(x=1530,y=735)
-    
     skillFrame.pack(fill="both", expand=1)
     skillCanvas.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda x: back(skillFrame,previousFrame,root))
@@ -233,31 +232,31 @@ def bag(root,playerHp):
 def increase(stat,charCreateMenu,remainStatsBox,textBox):
     global stats,hp,atk,armor,spd,luck
     if Char.getStats() >= 1:
-        Char.setStats(1)
+        Char.setStats("dec",1)
         remainStatsText = "Remaining:" + str(Char.getStats())
         charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
         if stat == "hp":     
-            Char.setHp(1)
+            Char.setHp("inc",1)
             hpText = "Health:" + str(Char.getHp())
             charCreateMenu.itemconfig(textBox, text=hpText)
             print("Increase HP by One")
         elif stat == "atk":     
-            Char.setAtk(1)
+            Char.setAtk("inc",1)
             atkText = "Attack:" + str(Char.getAtk())
             charCreateMenu.itemconfig(textBox, text=atkText)
             print("Increase Attack by One")
         elif stat == "armor":     
-            Char.setArmor(1)
+            Char.setArmor("inc",1)
             defText = "Defend:" + str(Char.getArmor())
             charCreateMenu.itemconfig(textBox, text=defText)
             print("Increase armor by One")
         elif stat == "spd":     
-            Char.setSpd(1)
+            Char.setSpd("inc",1)
             spdText = "Speed:" + str(Char.getSpd())
             charCreateMenu.itemconfig(textBox, text=spdText)
             print("Increase speed by One")
         elif stat == "luck":     
-            Char.setLuck(1)
+            Char.setLuck("inc",1)
             luckText = "Luck:" + str(Char.getSpd())
             charCreateMenu.itemconfig(textBox, text=luckText)
             print("Increase speed by One")    
@@ -265,30 +264,31 @@ def increase(stat,charCreateMenu,remainStatsBox,textBox):
         print("No more stats")
         
 def decrease(stat,charCreateMenu,remainStatsBox,textBox):
+    Char.setStats("inc",1)
     remainStatsText = "Remaining:" + str(Char.getStats())
     charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
     if stat == "hp":     
-        Char.setHp(1)
+        Char.setHp("dec",1)
         hpText = "Health:" + str(Char.getHp())
         charCreateMenu.itemconfig(textBox, text=hpText)
         print("Decrease HP by One")
     elif stat == "atk": 
-        Char.setAtk(1)
+        Char.setAtk("dec",1)
         atkText = "Attack:" + str(Char.getAtk())
         charCreateMenu.itemconfig(textBox, text=atkText)
         print("Decrease Attack by One")
     elif stat == "armor": 
-        Char.setArmor(1)
+        Char.setArmor("dec",1)
         defText = "Defend:" + str(Char.getArmor())
         charCreateMenu.itemconfig(textBox, text=defText)
         print("Decrease Armor by One")
     elif stat == "spd": 
-        Char.setSpd(1)
+        Char.setSpd("dec",1)
         spdText = "Speed:" + str(Char.getSpd())
         charCreateMenu.itemconfig(textBox, text=spdText)
         print("Decrease Speed by One")
     elif stat == "luck": 
-        Char.setLuck(1)
+        Char.setLuck("dec",1)
         luckText = "Luck:" + str(Char.getLuck())
         charCreateMenu.itemconfig(textBox, text=luckText)
         print("Decrease Luck by One")
@@ -348,7 +348,6 @@ def addPoint(root,previousFrame):
     backBtn = Button(create,text=" Back ",font=("Helvetica", 15), command= lambda: back(create,previousFrame,root)).place(x=1075,y=760)
 
     
-    
     charCreateMenu.pack()
     create.pack(fill="both", expand=1)
 
@@ -358,6 +357,7 @@ def addPoint(root,previousFrame):
 ===============================================================
 """
 def back(frame,previousFrame,root):
+    update(root)
     frame.pack_forget()
     previousFrame.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: close_win(root))
@@ -463,6 +463,34 @@ def printSlow(myText):
         delay += delta
 
 def attack(playerHp,root):
+    update(root)
+    if Mon.getCurrentHp() < 0:
+        if Char.getDifficulty() == 1:
+            Char.gainStat(1)
+            Char.incMoney(20)
+            gainStat = 1
+            gainMon = 20
+
+        elif Char.getDifficulty() == 2:
+            Char.gainStat(2)
+            Char.incMoney(40)
+            gainStat = 2
+            gainMon = 40
+
+        elif Char.getDifficulty() == 3:
+            Char.gainStat(3)
+            Char.incMoney(60)
+            gainStat = 3
+            gainMon = 60
+        
+        elif Char.getDifficulty() == 4:
+            Char.gainStat(5)
+            Char.incMoney(100)
+            gainStat = 5
+            gainMon = 100
+        moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
+        printSlow(moneyText)
+        
     if Mon.getCurrentHp() > 0:
         turn = Char.attack(Mon)
         gainStat = 0
@@ -494,35 +522,11 @@ def attack(playerHp,root):
         print("Player HP is ", Char.getCurrentHp())
         print("================")
     else:
-        if Char.getDifficulty() == 1:
-            Char.gainStat(1)
-            Char.incMoney(20)
-            gainStat = 1
-            gainMon = 20
-
-        elif Char.getDifficulty() == 2:
-            Char.gainStat(2)
-            Char.incMoney(40)
-            gainStat = 2
-            gainMon = 40
-
-        elif Char.getDifficulty() == 3:
-            Char.gainStat(3)
-            Char.incMoney(60)
-            gainStat = 3
-            gainMon = 60
         
-        elif Char.getDifficulty() == 4:
-            Char.gainStat(5)
-            Char.incMoney(100)
-            gainStat = 5
-            gainMon = 100
+        endFrame(root)
             
     save()
     update(root)
-    moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
-    printSlow(moneyText)
-    endFrame(root)
 
 def save():
     path = os.path.dirname(os.path.abspath(__file__)) + "/saves"

@@ -364,23 +364,41 @@ class Player:
     def setDifficulty(self,mode):
         self.difficulty = mode
         
-    def setHp(self,amount):
-        self.hp -= amount
+    def setHp(self,mode,amount):
+        if mode == "dec":
+            self.hp -= amount
+        else:
+            self.hp += amount
     
-    def setAtk(self,amount):
-        self.atk -= amount
+    def setAtk(self,mode,amount):
+        if mode == "dec":
+            self.atk -= amount
+        else:
+            self.atk += amount
         
-    def setArmor(self,amount):
-        self.armor -= amount
+    def setArmor(self,mode,amount):
+        if mode == "dec":
+            self.armor -= amount
+        else:
+            self.armor += amount
     
-    def setSpd(self,amount):
-        self.spd -= amount
+    def setSpd(self,mode,amount):
+        if mode == "dec":
+            self.spd -= amount
+        else:
+            self.spd += amount
         
-    def setLuck(self,amount):
-        self.luck -= amount
+    def setLuck(self,mode,amount):
+        if mode == "dec":
+            self.luck -= amount
+        else:
+            self.luck += amount
     
-    def setStats(self,amount):
-        self.stats -= amount
+    def setStats(self,mode,amount):
+        if mode == "dec":
+            self.stats -= amount
+        else:
+            self.stats += amount
        
     # Getters
     def getStatus(self):

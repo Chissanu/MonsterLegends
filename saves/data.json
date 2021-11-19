@@ -1,12 +1,12 @@
 {
-    "name": "ads",
-    "stats": 33,
+    "name": "asd",
+    "stats": 2,
     "hp": 100,
     "atk": 10,
     "def": 10,
-    "spd": 10,
+    "spd": 20,
     "luck": 5,
-    "money": 480,
+    "money": 180,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 55
+    "currentHp": 80
 }
