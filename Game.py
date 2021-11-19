@@ -391,6 +391,10 @@ def attack(playerHp,root):
         elif Char.getDifficulty() == 3:
             Char.gainStat(3)
             Char.incMoney(60)
+        
+        elif Char.getDifficulty() == 4:
+            Char.gainStat(5)
+            Char.incMoney(100)
             
     save()
     update(root)

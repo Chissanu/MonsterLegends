@@ -77,6 +77,9 @@ class Monster:
         elif Char.getDifficulty() == 3:
             monPoint = self.playerStat * 1.2
             print("Fighting hard mon")
+        elif Char.getDifficulty() == 4:
+            monPoint = self.playerStat * 1.6
+            print("Fighting Boss mon")
             
         temp = int(monPoint / 4)
         self.hp = random.randint(1,temp)
