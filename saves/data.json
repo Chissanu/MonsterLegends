@@ -1,24 +1,24 @@
 {
-    "name": "fd",
-    "stats": 0,
-    "hp": 90,
-    "atk": 63,
+    "name": "asd",
+    "stats": 2,
+    "hp": 100,
+    "atk": 10,
     "def": 10,
-    "spd": 25,
+    "spd": 20,
     "luck": 5,
-    "money": 60,
+    "money": -60,
     "bag": {
-        "Hp Potion": 2,
+        "Hp Potion": 0,
         "Mp Potion": 0
     },
     "redSkills": {
-        "Common Bullet Storm": 0,
-        "Normal Bullet Storm": 0,
-        "Rare Bullet Storm": 0,
-        "Common Precision Strike": 0,
+        "Common Bullet Storm": 2,
+        "Normal Bullet Storm": 1,
+        "Rare Bullet Storm": 1,
+        "Common Precision Strike": 1,
         "Normal Precision Strike": 1,
-        "Rare Precision Strike": 0,
-        "Common Thunder Bolt": 0,
+        "Rare Precision Strike": 1,
+        "Common Thunder Bolt": 1,
         "Normal Thunder Bolt": 0,
         "Rare Thunder Bolt": 0
     },
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 4
+    "currentHp": 98
 }

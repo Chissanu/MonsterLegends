@@ -71,7 +71,16 @@ class Player:
         self.atkOG2 = self.atk
         self.armorOG2 = self.armor
     
+    def removeBuff(self,Mon):
+        if Mon.getCurrentHp() < 0:
+            self.status.clear()
+            self.atk = self.atkOG2
+            self.armor = self.armorOG2
+            self.spd = self.speedOG
+    
     def tick(self,Mon):
+        
+            
         self.round += 1
         for key, val in self.status.items():    
             if self.status[key] > 0:

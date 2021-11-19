@@ -116,6 +116,7 @@ def goToShop(root,endFrame):
 
 def goToStats(root,endFrame):
     endFrame.pack_forget()
+    update(Mon)
     addPoint(root,endFrame)
 
     
@@ -125,6 +126,7 @@ def endFrame(root):
     endFrame = Frame(root)
     endCanvas = Canvas(endFrame,bg="#b1d0f2")
     
+    Char.removeBuff(Mon)
     endText = "You defeated the monster " + str(Mon.getName()) + "!"
     
     endTextBox = endCanvas.create_text(960,200,text=endText,font=("Helvetica", 40),anchor='center')
@@ -532,7 +534,6 @@ def attack(playerHp,root):
 
 def save():
     print("Game Saved!")
-    print(Char.getSpd())
     path = os.path.dirname(os.path.abspath(__file__)) + "/saves"
     with open("saves/data.json", "r") as jsonFile:
         data = json.load(jsonFile)
