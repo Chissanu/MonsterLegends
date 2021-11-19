@@ -134,10 +134,10 @@ class Player:
             print("The attack is ", self.atk)
             if Mon.getArmor() - self.atk >= 0:
                 # ACTUAL VALUES
-                #self.dmgDone = 1
+                self.dmgDone = 1
                 
                 # FOR TESTING ONLY
-                self.dmgDone = 5555
+                #self.dmgDone = 5555
                 Mon.setHp(self.dmgDone)
             else:
                 self.dmgDone = abs(Mon.getArmor() - self.atk)

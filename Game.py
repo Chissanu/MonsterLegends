@@ -464,34 +464,7 @@ def printSlow(myText):
         gameCanvas.after(delay,newText)
         delay += delta
 
-def attack(playerHp,root):
-    if Mon.getCurrentHp() < 0:
-        if Char.getDifficulty() == 1:
-            Char.setStats("inc",1)
-            Char.incMoney(20)
-            gainStat = 1
-            gainMon = 20
-
-        elif Char.getDifficulty() == 2:
-            Char.setStats("inc",2)
-            Char.incMoney(40)
-            gainStat = 2
-            gainMon = 40
-
-        elif Char.getDifficulty() == 3:
-            Char.setStats("inc",3)
-            Char.incMoney(60)
-            gainStat = 3
-            gainMon = 60
-        
-        elif Char.getDifficulty() == 4:
-            Char.setStats("inc",4)
-            Char.incMoney(100)
-            gainStat = 5
-            gainMon = 100
-        moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
-        printSlow(moneyText)
-        
+def attack(playerHp,root):        
     if Mon.getCurrentHp() > 0:
         turn = Char.attack(Mon)
         gainStat = 0
@@ -523,7 +496,35 @@ def attack(playerHp,root):
         print("Player HP is ", Char.getCurrentHp())
         print("================")
     else:
+        if Char.getDifficulty() == 1:
+            print("Increase Stat by 1")
+            Char.setStats("inc",1)
+            Char.incMoney(20)
+            gainStat = 1
+            gainMon = 20
+
+        elif Char.getDifficulty() == 2:
+            print("Increase Stat by 2")
+            Char.setStats("inc",2)
+            Char.incMoney(40)
+            gainStat = 2
+            gainMon = 40
+
+        elif Char.getDifficulty() == 3:
+            print("Increase Stat by 3")
+            Char.setStats("inc",3)
+            Char.incMoney(60)
+            gainStat = 3
+            gainMon = 60
         
+        elif Char.getDifficulty() == 4:
+            print("Increase Stat by 4")
+            Char.setStats("inc",4)
+            Char.incMoney(100)
+            gainStat = 5
+            gainMon = 100
+        moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
+        printSlow(moneyText)
         endFrame(root)
             
     save()
