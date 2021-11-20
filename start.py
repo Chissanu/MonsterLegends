@@ -5,7 +5,7 @@ from tkinter import *
 running = True
 
 root = Tk()
-root.title("Text Adventure")
+root.title("Monster Legends")
 root.geometry("1920x1080")
 root.configure(bg="#000000")
 root.attributes('-fullscreen',True)

@@ -5,7 +5,7 @@ import Setup as char
 from tkinter import *
 from PIL import ImageTk, Image
 from pathlib import Path
-import json,os, time
+import json,os,time,random
 
 
 
@@ -574,8 +574,12 @@ def genMon():
     global photo, Mon,monPhoto,bg,startBg
     
     #Gen random Background
-    path = Path(os.path.dirname(os.path.abspath(__file__)))
-    bg = PhotoImage(file = (str(path) + "\Assets\\background\Game\\1.png"))
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
+    bgList = next(os.walk(path), (None, None, []))[2]
+    randomBg = random.choice(bgList)
+    
+    bgLink = str(path) + randomBg
+    bg = PhotoImage(file = bgLink)
     startBg = gameCanvas.create_image(960, 440, image=bg)
     #startBg = Label(gameCanvas,image=bg, borderwidth=0).place(x=0,y=0)
     
