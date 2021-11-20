@@ -328,37 +328,38 @@ class Player:
         temp = random.randint(1,100)
         roll = temp + (int(Char.getLuck()) / 2) # Increase chance of getting better item
         temp = random.randint(1,100)
-        self.money -= 20
-        rarity = ["Common","Normal","Rare"]
-        
-        if item == "Red Scroll":
-            item = self.redSkills
-        elif item == "Blue Scroll":
-            item = self.blueSkills
-        elif item == "Green Scroll":
-            item = self.greenSkills
-        
-        if roll >= 1 and roll <= 50:            
-            skill = [i for i in list(item) if "Common" in i]
-            randSkill = random.choice(skill) #Choose random skills
-            item[randSkill] += 1
+        if self.money >= price:
+            self.money -= 20
+            rarity = ["Common","Normal","Rare"]
             
-        elif roll >= 51 and roll <= 80:            
-            skill = [i for i in list(item) if "Normal" in i]
-            randSkill = random.choice(skill)
-            item[randSkill] += 1   
-        
-        elif roll >= 81:   
-            skill = [i for i in list(item) if "Rare" in i]
-            randSkill = random.choice(skill)
-            item[randSkill] += 1
-        
-        if item == "Red Scroll":
-            self.redSkills = item
-        elif item == "Blue Scroll":
-            self.blueSkills = item
-        elif item == "Green Scroll":
-            self.GreenSkills = item
+            if item == "Red Scroll":
+                item = self.redSkills
+            elif item == "Blue Scroll":
+                item = self.blueSkills
+            elif item == "Green Scroll":
+                item = self.greenSkills
+            
+            if roll >= 1 and roll <= 50:            
+                skill = [i for i in list(item) if "Common" in i]
+                randSkill = random.choice(skill) #Choose random skills
+                item[randSkill] += 1
+                
+            elif roll >= 51 and roll <= 80:            
+                skill = [i for i in list(item) if "Normal" in i]
+                randSkill = random.choice(skill)
+                item[randSkill] += 1   
+            
+            elif roll >= 81:   
+                skill = [i for i in list(item) if "Rare" in i]
+                randSkill = random.choice(skill)
+                item[randSkill] += 1
+            
+            if item == "Red Scroll":
+                self.redSkills = item
+            elif item == "Blue Scroll":
+                self.blueSkills = item
+            elif item == "Green Scroll":
+                self.GreenSkills = item
         
     
     # Setters
