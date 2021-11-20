@@ -1,12 +1,12 @@
 {
     "name": "asd",
-    "stats": 2,
+    "stats": 4,
     "hp": 100,
     "atk": 10,
     "def": 10,
     "spd": 20,
     "luck": 5,
-    "money": -60,
+    "money": -20,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0
@@ -14,7 +14,7 @@
     "redSkills": {
         "Common Bullet Storm": 2,
         "Normal Bullet Storm": 1,
-        "Rare Bullet Storm": 1,
+        "Rare Bullet Storm": 0,
         "Common Precision Strike": 1,
         "Normal Precision Strike": 1,
         "Rare Precision Strike": 1,
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 98
+    "currentHp": 685
 }

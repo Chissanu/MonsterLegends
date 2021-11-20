@@ -101,6 +101,12 @@ class Monster:
         self.currentHp -= dmg
     
     # Getters
+    def getMonId(self):
+        return self.monId[:-4]
+    
+    def getMonName(self):
+        return self.path + "\\" + self.monId
+    
     def getPlayerStats(self):
         return self.playerStat
     

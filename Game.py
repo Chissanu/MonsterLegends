@@ -4,7 +4,7 @@ from Classes.Item import Item
 from tkinter import *
 from PIL import ImageTk, Image
 import Setup as char
-import json,os
+import json,os, time
 
 
 """
@@ -437,6 +437,18 @@ def shop(root,previousFrame):
                         Game Mechanics
 ===============================================================
 """
+def playAnimation(root):
+    global newPhoto
+    path = os.path.dirname(os.path.abspath(__file__))
+    for i in range(1,6):
+        text = path + "\\Assets\\Mon\\" + Mon.getMonId() + "\\" + str(i) + ".png"
+        newPhoto = PhotoImage(file = text)
+        gameCanvas.itemconfig(monPhoto,image=newPhoto)
+        root.update()
+        time.sleep(0.05)
+    newPhoto = PhotoImage(file = Mon.getMonName())
+    gameCanvas.itemconfig(monPhoto,image=newPhoto)
+    print("Done changing")
 
 
 def update(root):
@@ -477,6 +489,7 @@ def attack(playerHp,root):
                 dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("Comic Sans MS", 36,"bold italic"))
                 
                 text = "You did " + str(Char.getDmgDone()) + " Damage!"
+                playAnimation(root)
                 printSlow(text)
                 root.after(1000, gameCanvas.delete, dmgBox)       
         else:
@@ -556,10 +569,10 @@ def save():
 """
 
 def genMon():
-    global photo, Mon
+    global photo, Mon,monPhoto
     Mon = Monster(Char)
     photo = PhotoImage(file = Mon.genMonName())
-    gameCanvas.create_image(950, 480, image=photo)
+    monPhoto = gameCanvas.create_image(950, 480, image=photo)
 
 
 """
