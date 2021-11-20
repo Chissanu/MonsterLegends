@@ -4,7 +4,6 @@ from Classes.Item import Item
 from tkinter import *
 from PIL import ImageTk, Image
 import Setup as char
-from functools import partial
 import json,os
 
 
@@ -45,8 +44,6 @@ def useSkill(skill,count,root):
             printSlow(text)
     save()
     
-            
-
 def skill(root,previousFrame):
     gameFrame.pack_forget()
     skillList = {}
@@ -118,9 +115,7 @@ def goToStats(root,endFrame):
     endFrame.pack_forget()
     update(Mon)
     addPoint(root,endFrame)
-
-    
-    
+  
 def endFrame(root):
     gameFrame.pack_forget()
     endFrame = Frame(root)
