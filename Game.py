@@ -1,10 +1,12 @@
 from Classes.Monster import Monster
 from Classes.Player import Player
 from Classes.Item import Item
+import Setup as char
 from tkinter import *
 from PIL import ImageTk, Image
-import Setup as char
+from pathlib import Path
 import json,os, time
+
 
 
 """
@@ -569,7 +571,15 @@ def save():
 """
 
 def genMon():
-    global photo, Mon,monPhoto
+    global photo, Mon,monPhoto,bg,startBg
+    
+    #Gen random Background
+    path = Path(os.path.dirname(os.path.abspath(__file__)))
+    bg = PhotoImage(file = (str(path) + "\Assets\\background\Game\\1.png"))
+    startBg = gameCanvas.create_image(960, 440, image=bg)
+    #startBg = Label(gameCanvas,image=bg, borderwidth=0).place(x=0,y=0)
+    
+    #Gen mon
     Mon = Monster(Char)
     photo = PhotoImage(file = Mon.genMonName())
     monPhoto = gameCanvas.create_image(950, 480, image=photo)
@@ -600,11 +610,11 @@ def genCanvas(root):
 def game(root):
     global monHp,playerHp,playerAtk,playerDef,playerSpd,gameText
     
-    textBox = gameCanvas.create_rectangle(5, 800, 1195, 1075, fill="#ffffff",width=5, outline='blue')
-    ActionBox = gameCanvas.create_rectangle(1200, 800, 1915, 1075, fill="#000000",width=5, outline='red')
+    textBox = gameCanvas.create_rectangle(5, 800, 1195, 1075, fill="#14171c",width=5, outline='#d5dde8')
+    ActionBox = gameCanvas.create_rectangle(1200, 800, 1915, 1075, fill="#14171c",width=5, outline='#d5dde8')
 
     # Render enemy's health
-    monHpBox = gameCanvas.create_rectangle(5, 5, 500, 200, fill="#ffffff",width=5, outline='blue')
+    monHpBox = gameCanvas.create_rectangle(5, 5, 500, 200, fill="#14171c",width=5, outline='#d5dde8')
 
     # Generate Mon Stats
     monHpText = "HP: " + str(Mon.getCurrentHp()) + "/" + str(Mon.getHp())
@@ -612,15 +622,15 @@ def game(root):
     monDefText = "Def: " + str(Mon.getArmor())
     monSpdText = "Spd: " + str(Mon.getSpd())
 
-    monName = gameCanvas.create_text(250,50,text=(Mon.getName()),font=("Helvetica", 30))
-    monHp = gameCanvas.create_text(64,100,text=monHpText,font=("Helvetica", 20),anchor='w')
-    monAtk = gameCanvas.create_text(64,150,text=monAtkText,font=("Helvetica", 20),anchor='w')
-    monDef = gameCanvas.create_text(280,100,text=monDefText,font=("Helvetica", 20),anchor='w')
-    monSpd = gameCanvas.create_text(280,150,text=monSpdText,font=("Helvetica", 20),anchor='w')
+    monName = gameCanvas.create_text(250,50,text=(Mon.getName()),font=("Helvetica", 30),fill="white")
+    monHp = gameCanvas.create_text(64,100,text=monHpText,font=("Helvetica", 20),anchor='w',fill="white")
+    monAtk = gameCanvas.create_text(64,150,text=monAtkText,font=("Helvetica", 20),anchor='w',fill="white")
+    monDef = gameCanvas.create_text(280,100,text=monDefText,font=("Helvetica", 20),anchor='w',fill="white")
+    monSpd = gameCanvas.create_text(280,150,text=monSpdText,font=("Helvetica", 20),anchor='w',fill="white")
     
 
     # Render Character's health
-    playerHpBox = gameCanvas.create_rectangle(1400, 600, 1915, 795, fill="#ffffff",width=5, outline='blue')
+    playerHpBox = gameCanvas.create_rectangle(1400, 600, 1915, 795, fill="#14171c",width=5, outline='#d5dde8')
 
     # Generate Player stats
     playerHpText = "HP:" + str(Char.getCurrentHp()) + "/" + str(Char.getHp())
@@ -628,15 +638,15 @@ def game(root):
     playerDefText = "Def:" + str(Char.getArmor())
     playerSpdText = "Spd:" + str(Char.getSpd())
 
-    playerName = gameCanvas.create_text(1650,640,text=(Char.getName()),font=("Helvetica", 30))
-    playerHp = gameCanvas.create_text(1420,680,text=playerHpText,font=("Helvetica", 20),anchor='w')
-    playerAtk = gameCanvas.create_text(1650,680,text=playerAtkText,font=("Helvetica", 20),anchor='w')
-    playerDef = gameCanvas.create_text(1420,730,text=playerDefText,font=("Helvetica", 20),anchor='w')
-    playerSpd = gameCanvas.create_text(1650,730,text=playerSpdText,font=("Helvetica", 20),anchor='w')
+    playerName = gameCanvas.create_text(1650,640,text=(Char.getName()),font=("Helvetica", 30),fill="white")
+    playerHp = gameCanvas.create_text(1460,680,text=playerHpText,font=("Helvetica", 20),anchor='w',fill="white")
+    playerAtk = gameCanvas.create_text(1690,680,text=playerAtkText,font=("Helvetica", 20),anchor='w',fill="white")
+    playerDef = gameCanvas.create_text(1460,730,text=playerDefText,font=("Helvetica", 20),anchor='w',fill="white")
+    playerSpd = gameCanvas.create_text(1690,730,text=playerSpdText,font=("Helvetica", 20),anchor='w',fill="white")
 
     # Render Game Message
     foundText = "You found " + Mon.getName() + "!"
-    gameText = gameCanvas.create_text(560,930,text="",font=("Helvetica", 30))
+    gameText = gameCanvas.create_text(560,930,text="",font=("Helvetica", 30),fill="white")
     printSlow(foundText)
 
     atkBtn = Button(gameCanvas, text="ATK",command=lambda:attack(playerHp,root),width=10,border=5,font=("Helvetica", 20)).place(relx=0.65, rely=0.8)

@@ -15,7 +15,7 @@ def init_menu(root):
     path = Path(os.path.dirname(os.path.abspath(__file__)))
     
     # Loading image
-    bg = PhotoImage(file = (str(path) + "\Assets\\background\main.png"))
+    bg = PhotoImage(file = (str(path) + "\Assets\\background\Menu\main.png"))
     
     
     startCanvas = Canvas(root)
