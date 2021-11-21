@@ -535,6 +535,9 @@ def attack(playerHp,root):
             Char.incMoney(100)
             gainStat = 5
             gainMon = 100
+            
+            
+            
         moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
         printSlow(moneyText)
         endFrame(root)
@@ -581,12 +584,15 @@ def genMon():
     bgLink = str(path) + randomBg
     bg = PhotoImage(file = bgLink)
     startBg = gameCanvas.create_image(960, 440, image=bg)
-    #startBg = Label(gameCanvas,image=bg, borderwidth=0).place(x=0,y=0)
     
     #Gen mon
     Mon = Monster(Char)
     photo = PhotoImage(file = Mon.genMonName())
     monPhoto = gameCanvas.create_image(950, 480, image=photo)
+    if Char.getDifficulty() == 4:
+        photo = PhotoImage(file = Mon.genBossName())
+        monPhoto = gameCanvas.create_image(950, 480, image=photo)
+    
 
 
 """

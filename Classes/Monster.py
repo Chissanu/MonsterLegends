@@ -16,6 +16,8 @@ class Monster:
         # Path
         self.path = Path(os.path.dirname(os.path.abspath(__file__)))
         self.path = self.path.parent.absolute()
+        self.bossPath = self.path
+        self.bossPath = str(self.path) + "\Assets\Mon\Boss"
         self.path = str(self.path) + "\Assets\Mon"
     
     def genMonName(self):
@@ -24,6 +26,13 @@ class Monster:
         self.monName = self.monId[:-4]
         self.genMonTitle()
         return self.path + "\\" + self.monId
+    
+    def genBossName(self):
+        bossList = next(os.walk(self.bossPath), (None, None, []))[2]
+        self.monId = random.choice(bossList)
+        self.monName = self.monId[:-4]
+        self.genMonTitle()
+        return self.bossPath + "\\" + self.monId
     
     def genMonTitle(self):
         title = ["Weak ","Sharp ","Speedy ","Sluggish ","Heavy ","Strong ","Small ","Legendary "]
