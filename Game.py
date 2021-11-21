@@ -45,8 +45,9 @@ def useSkill(skill,count,root):
             text = "Your Attack has increased by "+ str(30)
             printSlow(text)
     save()
-    
+
 def skill(root,previousFrame):
+    global countText,skillCanvas
     gameFrame.pack_forget()
     skillList = {}
     useRedBtn = []

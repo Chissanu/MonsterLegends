@@ -1,21 +1,21 @@
 {
     "name": "Oak",
-    "stats": 11,
+    "stats": 101,
     "hp": 100,
-    "atk": 12,
+    "atk": 52,
     "def": 10,
     "spd": 20,
     "luck": 5,
-    "money": 80,
+    "money": 1280,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0
     },
     "redSkills": {
-        "Common Bullet Storm": 1,
-        "Normal Bullet Storm": 0,
-        "Rare Bullet Storm": 0,
-        "Common Precision Strike": 1,
+        "Common Bullet Storm": 5,
+        "Normal Bullet Storm": 1,
+        "Rare Bullet Storm": 1,
+        "Common Precision Strike": 6,
         "Normal Precision Strike": 0,
         "Rare Precision Strike": 0,
         "Common Thunder Bolt": 0,
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 484
+    "currentHp": 309
 }
