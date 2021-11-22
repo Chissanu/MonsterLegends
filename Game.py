@@ -175,7 +175,7 @@ def useItem(itemName,playerHp,count,bagCanvas):
     bagCanvas.itemconfig(count, text=Char.getBag(itemName))
     save()
     
-def bag(root,playerHp):
+def bag(root,playerHp,previousFrame):
     global imgList
     gameFrame.pack_forget()
     item = Item()
@@ -236,7 +236,7 @@ def bag(root,playerHp):
 
     bagFrame.pack(fill="both", expand=1)
     bagCanvas.pack(fill="both", expand=1)
-    root.bind('<Escape>', lambda e: goToGame(bagFrame,root))
+    root.bind('<Escape>', lambda e: back(bagFrame,previousFrame,root))
     
 """
 ===============================================================
@@ -363,7 +363,6 @@ def addPoint(root,previousFrame):
 
     backBtn = Button(create,text=" Back ",font=("Helvetica", 15), command= lambda: back(create,previousFrame,root)).place(x=1075,y=760)
 
-    
     charCreateMenu.pack()
     create.pack(fill="both", expand=1)
 
@@ -692,7 +691,7 @@ def game(root):
     printSlow(foundText)
 
     atkBtn = Button(gameCanvas, text="ATK",command=lambda:attack(playerHp,root),width=10,border=5,font=("Helvetica", 20)).place(relx=0.65, rely=0.8)
-    bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp),font=("Helvetica", 20)).place(relx=0.65, rely=0.9)
+    bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp,gameFrame),font=("Helvetica", 20)).place(relx=0.65, rely=0.9)
     skillbtn = Button(gameCanvas, text="SCROLL",width=10,border=5,command=lambda:skill(root,gameFrame),font=("Helvetica", 20)).place(relx=0.768, rely=0.8)
     runBtn = Button(gameCanvas, text="RUN",width=10,border=5,font=("Helvetica", 20)).place(relx=0.768, rely=0.9)
     saveBtn = Button(gameCanvas, text="Save",command=lambda:save(),width=10,height=4,border=5,font=("Helvetica", 20)).place(relx=0.89, rely=0.805)
