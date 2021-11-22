@@ -18,8 +18,16 @@ def close_win(root):
     root.destroy()
 
 def goToGame(frame,root):
+    global startBg,bg
     save()
     frame.pack_forget()
+    
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
+    
+    bgLink = str(path) + randomBg
+    bg = PhotoImage(file = bgLink)
+    startBg = gameCanvas.create_image(960, 440, image=bg)
+    
     gameFrame.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: close_win(root))
 
@@ -28,9 +36,10 @@ def goToGame(frame,root):
                       Skill Frame
 ===============================================================
 """
-def useSkill(skill,count,root):
+def useSkill(btn,skill,count,root):
     Char.useScroll(skill,count,Mon)
     update(root)
+    btn.config(text="OK")
     text = "You did " + str(Char.getDmgDone()) + " Damage!"
     printSlow(text)
     playerAtkText = "ATK:" + str(Char.getAtk())
@@ -75,7 +84,12 @@ def skill(root,previousFrame):
     for key,value in Char.getRedSkill().items():
         text = skillCanvas.create_text(320,y5,text=key,font=("Helvetica", 15),anchor='w')
         countText = skillCanvas.create_text(600,y5,text=value,font=("Helvetica", 15),anchor='w')
-        useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("Helvetica", 10)).place(x=630, y=y5-15))
+        redBtn = Button(skillCanvas, text="USE", font=("Helvetica", 10))
+        redBtn.config(
+        command=lambda btn=redBtn, key=key, value=value: useSkill(btn, key, value, root))
+        redBtn.place(x=630, y=y5-15)
+        useRedBtn.append(redBtn)
+        #useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("Helvetica", 10)).place(x=630, y=y5-15))
         y5 += 30
     
     # Blue Scrolls
@@ -359,8 +373,17 @@ def addPoint(root,previousFrame):
 ===============================================================
 """
 def back(frame,previousFrame,root):
+    global bg
     update(root)
     frame.pack_forget()
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
+    
+    bgLink = str(path) + randomBg
+    bg = PhotoImage(file = bgLink)
+    startBg = gameCanvas.create_image(960, 440, image=bg)
+    
+    gameCanvas.tag_lower(startBg)
+    
     previousFrame.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: close_win(root))
     
@@ -382,7 +405,18 @@ def buy(itemName,item,shopCanvas,moneyTextBox):
     save()
 
 def shop(root,previousFrame):
-    global imgList, skillList
+    global imgList, skillList,startBg,bg
+    
+    gameFrame.pack_forget()
+    shopFrame = Frame(root)
+    shopCanvas = Canvas(shopFrame,bg="#b1d0f2")
+    
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Shop\\"
+    
+    bgLink = str(path) + "main.png"
+    bg = PhotoImage(file = bgLink)
+    startBg = shopCanvas.create_image(960, 540, image=bg)
+    
     item = Item()
     imgList = {}
     skillList = {}
@@ -391,9 +425,6 @@ def shop(root,previousFrame):
     x,y = 650 , 160 # Item cords
     x2,y2 = 0.48, 0.135 #  Buy cords
     x3,y3 = 800, 165 # Item name cords
-    gameFrame.pack_forget()
-    shopFrame = Frame(root)
-    shopCanvas = Canvas(shopFrame,bg="#b1d0f2")
     
     # Render Shop GUI
     shopText = shopCanvas.create_text(960,50,text="SHOP",font=("Helvetica", 40),anchor='center')
@@ -575,7 +606,7 @@ def save():
 """
 
 def genMon():
-    global photo, Mon,monPhoto,bg,startBg
+    global photo, Mon,monPhoto,bg,startBg, randomBg
     
     #Gen random Background
     path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
