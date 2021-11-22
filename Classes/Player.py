@@ -328,6 +328,7 @@ class Player:
         temp = random.randint(1,100)
         roll = temp + (int(Char.getLuck()) / 2) # Increase chance of getting better item
         temp = random.randint(1,100)
+        itemName = ""
         if self.money >= price:
             self.money -= 20
             rarity = ["Common","Normal","Rare"]
@@ -343,16 +344,20 @@ class Player:
                 skill = [i for i in list(item) if "Common" in i]
                 randSkill = random.choice(skill) #Choose random skills
                 item[randSkill] += 1
+                itemName = randSkill
+                print(itemName)
                 
             elif roll >= 51 and roll <= 80:            
                 skill = [i for i in list(item) if "Normal" in i]
                 randSkill = random.choice(skill)
-                item[randSkill] += 1   
+                item[randSkill] += 1  
+                itemName = randSkill
             
             elif roll >= 81:   
                 skill = [i for i in list(item) if "Rare" in i]
                 randSkill = random.choice(skill)
                 item[randSkill] += 1
+                itemName = randSkill
             
             if item == "Red Scroll":
                 self.redSkills = item
@@ -360,6 +365,7 @@ class Player:
                 self.blueSkills = item
             elif item == "Green Scroll":
                 self.GreenSkills = item
+        return itemName
         
     
     # Setters

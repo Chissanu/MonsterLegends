@@ -5,7 +5,9 @@ import Setup as char
 from tkinter import *
 from PIL import ImageTk, Image
 from pathlib import Path
+from winsound import *
 import json,os,time,random, math
+
 
 
 
@@ -16,6 +18,15 @@ import json,os,time,random, math
 """
 def close_win(root):
     root.destroy()
+
+def click(root):
+    global play
+    print("Clicked")
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    clickSound = path + "click.wav"
+    print(clickSound)
+    PlaySound(clickSound,SND_ASYNC)
+    root.update()
 
 def goToGame(frame,root):
     global startBg,bg
@@ -37,6 +48,7 @@ def goToGame(frame,root):
 ===============================================================
 """
 def useSkill(btn,skill,count,root):
+    click(root)
     Char.useScroll(skill,count,Mon)
     update(root)
     btn.config(text="OK")
@@ -58,6 +70,7 @@ def useSkill(btn,skill,count,root):
 def skill(root,previousFrame):
     global countText,skillCanvas
     gameFrame.pack_forget()
+    click(root)
     skillList = {}
     useRedBtn = []
     useBlueBtn = []
@@ -166,6 +179,7 @@ def endGame(root):
 ===============================================================
 """
 def useItem(itemName,playerHp,count,bagCanvas):
+    click(root)
     if itemName == "Red Scroll":
         pass
     else:
@@ -186,7 +200,7 @@ def bag(root,playerHp,previousFrame):
     x2,y2 = 960, 165 # Item name cords
     x3,y3 = 1050, 165
     x4,y4 = 0.58,0.136
-
+    click(root)
     bagFrame = Frame(root)
     bagCanvas = Canvas(bagFrame,bg="#b1d0f2")
     bagText = bagCanvas.create_text(960,50,text="Inventory",font=("Helvetica", 40),anchor='center')
@@ -372,33 +386,27 @@ def addPoint(root,previousFrame):
                       Shop Frame
 ===============================================================
 """
-def back(frame,previousFrame,root):
-    global bg
-    update(root)
-    frame.pack_forget()
-    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
     
-    bgLink = str(path) + randomBg
-    bg = PhotoImage(file = bgLink)
-    startBg = gameCanvas.create_image(960, 440, image=bg)
+def buy(itemName,item,shopCanvas,moneyTextBox,root):
+    text = "You bought ITEM NAME NAME MAXIMUM"
     
-    gameCanvas.tag_lower(startBg)
+    # Render bought item name
+    buyBox = shopCanvas.create_rectangle(1400, 350, 1900, 500, fill="white",width=5, outline='black')
     
-    previousFrame.pack(fill="both", expand=1)
-    root.bind('<Escape>', lambda e: close_win(root))
-    
-    
-def buy(itemName,item,shopCanvas,moneyTextBox):
     if itemName == "Hp Potion":
         Char.buyItem("Hp Potion",20)
     elif itemName == "Mp Potion":
         Char.buyItem("Mp Potion",20)
     elif itemName == "Red Scroll":
-        Char.buyScroll(Char,"Red Scroll",20)
+        itemName = Char.buyScroll(Char,"Red Scroll",20)
     elif itemName == "Blue Scroll":
-        Char.buyScroll(Char,"Blue Scroll",20)
+        itemName = Char.buyScroll(Char,"Blue Scroll",20)
     elif itemName == "Green Scroll":
-        Char.buyScroll(Char,"Green Scroll",20)
+        itemName = Char.buyScroll(Char,"Green Scroll",20)
+    
+    text = "You bought " + itemName
+    buyText = shopCanvas.create_text(1650,420,text=text,font=("Helvetica", 18))
+    root.after(3000, shopCanvas.delete, buyText,buyBox) 
     
     moneyText = "Money: " + str(Char.getMoney()) + "G"
     shopCanvas.itemconfig(moneyTextBox,text=moneyText)
@@ -454,11 +462,11 @@ def shop(root,previousFrame):
     moneyTextBox = shopCanvas.create_text(960,760,text=moneyText,font=("Helvetica", 20))
        
     # Render Buy
-    hpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox)).place(relx=x2, rely=y2)
-    mpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox)).place(relx=x2, rely=y2 + 0.07)
-    blueBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox)).place(relx=x2, rely=y2 + 0.145)
-    greenBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox)).place(relx=x2, rely=y2 + 0.22)
-    redBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox)).place(relx=x2, rely=y2 + 0.295)
+    hpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
+    mpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
+    blueBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
+    greenBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
+    redBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
     backBtn = Button(shopCanvas,text=" Back ",font=("Helvetica", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
     
     # Render Frame and Canvas
@@ -471,6 +479,23 @@ def shop(root,previousFrame):
                         Game Mechanics
 ===============================================================
 """
+
+def back(frame,previousFrame,root):
+    global bg
+    update(root)
+    click(root)
+    frame.pack_forget()
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
+    
+    bgLink = str(path) + randomBg
+    bg = PhotoImage(file = bgLink)
+    startBg = gameCanvas.create_image(960, 440, image=bg)
+    
+    gameCanvas.tag_lower(startBg)
+    
+    previousFrame.pack(fill="both", expand=1)
+    root.bind('<Escape>', lambda e: close_win(root))
+    
 
 def run(root):
     turn = random.randint(1, Char.getSpd() + Mon.getSpd())
@@ -522,7 +547,8 @@ def printSlow(myText):
         gameCanvas.after(delay,newText)
         delay += delta
 
-def attack(playerHp,root):        
+def attack(playerHp,root):
+    click(root)       
     if Mon.getCurrentHp() > 0:
         turn = Char.attack(Mon)
         gainStat = 0

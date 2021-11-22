@@ -1,11 +1,6 @@
-from tkinter import *
-r =  Tk()
+from pydub import AudioSegment
+from pydub.playback import play
 
-my_entries = []
-for i in range(5):
-    e = Label(r, text=i)
-    my_entries.append(e)
-    e.pack(side='top')
-    
-r.after(4000, lambda: my_entries[2].configure(text='Example'))
-r.mainloop()
+song = AudioSegment.from_wav("C:\Users\WIndows10\Desktop\School Stuff\KMITL\Intro to Fundamental Programming lang\MonsterLegends\Assets\sound\click.wav")
+play(song)
+
