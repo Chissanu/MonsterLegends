@@ -5,7 +5,7 @@ import Setup as char
 from tkinter import *
 from PIL import ImageTk, Image
 from pathlib import Path
-import json,os,time,random
+import json,os,time,random, math
 
 
 
@@ -133,7 +133,8 @@ def goToStats(root,endFrame):
     update(Mon)
     addPoint(root,endFrame)
   
-def endFrame(root):
+def endGame(root):
+    global endFrame
     gameFrame.pack_forget()
     endFrame = Frame(root)
     endCanvas = Canvas(endFrame,bg="#b1d0f2")
@@ -470,6 +471,21 @@ def shop(root,previousFrame):
                         Game Mechanics
 ===============================================================
 """
+
+def run(root):
+    turn = random.randint(1, Char.getSpd() + Mon.getSpd())
+    if turn <= Char.getSpd() + Char.getLuck():
+        text = "Escape succesfully!"
+        printSlow(text)
+        new(root)
+    else:
+        text = "Failed to escape..."
+        dmg = abs(Char.getArmor() - Mon.getAtk())
+        Char.setCurrentHp("dec",dmg)
+        printSlow(text)
+    update(root)
+        
+
 def playAnimation(root):
     global newPhoto
     path = os.path.dirname(os.path.abspath(__file__))
@@ -567,11 +583,9 @@ def attack(playerHp,root):
             gainStat = 5
             gainMon = 100
             
-            
-            
         moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
         printSlow(moneyText)
-        endFrame(root)
+        endGame(root)
             
     save()
     update(root)
@@ -693,7 +707,7 @@ def game(root):
     atkBtn = Button(gameCanvas, text="ATK",command=lambda:attack(playerHp,root),width=10,border=5,font=("Helvetica", 20)).place(relx=0.65, rely=0.8)
     bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp,gameFrame),font=("Helvetica", 20)).place(relx=0.65, rely=0.9)
     skillbtn = Button(gameCanvas, text="SCROLL",width=10,border=5,command=lambda:skill(root,gameFrame),font=("Helvetica", 20)).place(relx=0.768, rely=0.8)
-    runBtn = Button(gameCanvas, text="RUN",width=10,border=5,font=("Helvetica", 20)).place(relx=0.768, rely=0.9)
+    runBtn = Button(gameCanvas, text="RUN",width=10,border=5,command=lambda:run(root),font=("Helvetica", 20)).place(relx=0.768, rely=0.9)
     saveBtn = Button(gameCanvas, text="Save",command=lambda:save(),width=10,height=4,border=5,font=("Helvetica", 20)).place(relx=0.89, rely=0.805)
     
     gameFrame.pack(fill="both", expand=1)
@@ -701,4 +715,4 @@ def game(root):
         
     root.bind('<Escape>', lambda e: close_win(root))
     root.bind('<F2>', lambda x :shop(root,gameFrame))
-    root.bind('b', lambda x :bag(root,playerHp))
+    root.bind('b', lambda x :bag(root,playerHp,gameFrame))

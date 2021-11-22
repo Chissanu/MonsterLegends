@@ -363,6 +363,13 @@ class Player:
         
     
     # Setters
+    def setCurrentHp(self,mode,amount):
+        print("Decrease hp by", amount)
+        if mode == "dec":
+            self.currentHp -= amount
+        else:
+            self.currentHp += amount
+    
     def incMoney(self,amount):
         self.money += amount
     
@@ -442,7 +449,7 @@ class Player:
         return self.name
     
     def getTotalStats(self):
-        totalStats = (self.hp/4) + self.atkOG2 + self.armorOG + self.speedOG + self.stats
+        totalStats = (self.hp/4) + self.atkOG2 + self.armorOG + self.speedOG
         return totalStats
     
     def getDmgDone(self):
