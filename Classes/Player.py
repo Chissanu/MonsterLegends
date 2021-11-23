@@ -138,13 +138,19 @@ class Player:
         self.tick(Mon)
         turn = random.randint(1, self.spd + Mon.getSpd())
         #print("Rolled: ",turn)
-        if turn <= self.spd:
+        if turn <= self.spd + int(self.luck/4):
             # print("Player attacking")
             print("The attack is ", self.atk)
             if Mon.getArmor() - self.atk >= 0:
                 # ACTUAL VALUES
                 self.dmgDone = 1
                 
+                cri = random.randint(1,100 + self.luck)
+                print(cri)
+                if cri > 100:
+                    print("Lucky Strike!")
+                    self.dmgDone = self.dmgDone * int(cri / 100)
+                    
                 # FOR TESTING ONLY
                 #self.dmgDone = 5555
                 Mon.setHp(self.dmgDone)

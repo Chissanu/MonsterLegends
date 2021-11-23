@@ -74,7 +74,6 @@ def useSkill(btn,skill,count,root):
     click()
     Char.useScroll(skill,count,Mon)
     update(root)
-    btn.config(text="OK")
     text = "You did " + str(Char.getDmgDone()) + " Damage!"
     printSlow(text)
     playerAtkText = "ATK:" + str(Char.getAtk())
@@ -198,25 +197,40 @@ def goToStats(root,endFrame):
     addPoint(root,endFrame)
   
 def endGame(root):
-    global endFrame
+    global endFrame, bg
     gameFrame.pack_forget()
     endFrame = Frame(root)
     endCanvas = Canvas(endFrame,bg="#b1d0f2")
     
     Char.removeBuff(Mon)
-    endText = "You defeated the monster " + str(Mon.getName()) + "!"
     
-    endTextBox = endCanvas.create_text(960,200,text=endText,font=("alagard", 40),anchor='center')
-    diffText = endCanvas.create_text(960,350,text="Choose difficultly!",font=("alagard", 40),anchor='center')
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Menu\\"
+    
+    bgLink = str(path) + "end.png"
+    bg = PhotoImage(file = bgLink)
+    startBg = endCanvas.create_image(960, 540, image=bg)
 
-    easyBtn = Button(endCanvas, text="Easy",command=lambda:newGame(root,1,endFrame),width=30,font=("alagard", 15)).place(x=180, y=500)
-    medBtn = Button(endCanvas, text="Medium",command=lambda:newGame(root,2,endFrame),width=30,font=("alagard", 15)).place(x=800, y=500)
-    hardBtn = Button(endCanvas, text="Hard",command=lambda:newGame(root,3,endFrame),width=30,font=("alagard", 15)).place(x=1440, y=500)
-    bossBtn = Button(endCanvas, text="BOSS",command=lambda:newGame(root,4,endFrame),width=30,font=("alagard", 15)).place(x=800, y=700)
+    if Mon.getCurrentHp() > 0:
+        endText = "You teleported away from " + str(Mon.getName()) + "!"
+    else:
+        endText = "You defeated the " + str(Mon.getName()) + "!"
+    
+    endTextBox = endCanvas.create_text(964,204,text=endText,font=("alagard", 40),fill="blue",anchor='center')
+    endTextBox_fg = endCanvas.create_text(960,200,text=endText,font=("alagard", 40),fill="white",anchor='center')
+    endCanvas.tag_raise(endTextBox_fg,endTextBox)
+    
+    diffText = endCanvas.create_text(1664,344,text="Choose difficultly!",font=("alagard", 40),fill="blue",anchor='center')
+    diffText_fg = endCanvas.create_text(1660, 340, text="Choose difficultly!", font=("alagard", 40), fill='white')
+    endCanvas.tag_raise(diffText_fg,diffText)
 
-    shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("alagard", 15)).place(x=180, y=700)
-    saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("alagard", 15)).place(x=800, y=900)
-    statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("alagard", 15)).place(x=1440, y=700)
+    
+    easyBtn = Button(endCanvas, text="Easy",command=lambda:newGame(root,1,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=400)
+    medBtn = Button(endCanvas, text="Medium",command=lambda:newGame(root,2,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=480)
+    hardBtn = Button(endCanvas, text="Hard",command=lambda:newGame(root,3,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=560)
+    bossBtn = Button(endCanvas, text="BOSS",command=lambda:newGame(root,4,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=640)
+    shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=720)
+    statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=800)
+    saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("alagard", 15)).place(x=1500, y=880)
 
     endFrame.pack(fill="both", expand=1)
     endCanvas.pack(fill="both", expand=1)
@@ -528,11 +542,11 @@ def shop(root,previousFrame):
        
     # Render Buy
     for i in item.getItemList():
-        buyBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 10)).place(relx=x2, rely=y2))
+        buyBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
         y2 += 0.075
     
     for i in Char.getSkillList():
-        skillBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 10)).place(relx=x2, rely=y2))
+        skillBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
         y2 += 0.075
     
     # Render Frame and Canvas
@@ -588,7 +602,6 @@ def playAnimation(root):
         time.sleep(0.05)
     newPhoto = PhotoImage(file = Mon.getMonName())
     gameCanvas.itemconfig(monPhoto,image=newPhoto)
-    print("Done changing")
 
 
 def update(root):
