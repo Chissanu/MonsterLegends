@@ -70,7 +70,7 @@ def goToGame(frame,root):
                       Skill Frame
 ===============================================================
 """
-def useSkill(btn,skill,count,root):
+def useSkill(skill,count,root):
     click()
     Char.useScroll(skill,count,Mon)
     update(root)
@@ -119,12 +119,7 @@ def skill(root,previousFrame):
     for key,value in Char.getRedSkill().items():
         text = skillCanvas.create_text(320,y5,text=key,font=("alagard", 15),anchor='w')
         countText = skillCanvas.create_text(600,y5,text=value,font=("alagard", 15),anchor='w')
-        redBtn = Button(skillCanvas, text="USE", font=("alagard", 10))
-        redBtn.config(
-        command=lambda btn=redBtn, key=key, value=value: useSkill(btn, key, value, root))
-        redBtn.place(x=630, y=y5-15)
-        useRedBtn.append(redBtn)
-        #useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("alagard", 10)).place(x=630, y=y5-15))
+        useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("alagard", 10)).place(x=630, y=y5-15))
         y5 += 30
     
     # Blue Scrolls

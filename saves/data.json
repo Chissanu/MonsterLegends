@@ -2,11 +2,11 @@
     "name": "Oak",
     "stats": 8,
     "hp": 50,
-    "atk": 30,
+    "atk": 60,
     "def": 10,
     "spd": 46,
     "luck": 30,
-    "money": 950,
+    "money": 910,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0,
@@ -37,7 +37,7 @@
         "Rare Heal": 0,
         "Common Attack Up": 0,
         "Normal Attack Up": 0,
-        "Rare Attack Up": 1,
+        "Rare Attack Up": 0,
         "Common Armor Up": 0,
         "Normal Armor Up": 0,
         "Rare Armor up": 1,
@@ -45,5 +45,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": -17
+    "currentHp": 23
 }
