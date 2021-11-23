@@ -1,10 +1,10 @@
 {
-    "name": "Oak",
-    "stats": 0,
+    "name": "asd",
+    "stats": 10,
     "hp": 100,
     "atk": 10,
     "def": 10,
-    "spd": 20,
+    "spd": 10,
     "luck": 5,
     "money": 100,
     "bag": {
@@ -44,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 72
+    "currentHp": 97
 }

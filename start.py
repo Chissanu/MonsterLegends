@@ -4,6 +4,7 @@ from tkinter import *
 from pathlib import Path
 from winsound import *
 import os
+from multiprocessing import Process
 
 running = True
 
@@ -16,7 +17,7 @@ root.attributes('-fullscreen',True)
 
 path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
 bgSound = path + "menu.wav"
-PlaySound(bgSound,SND_ASYNC)
+PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
 
 if running:
     menu.init_menu(root)

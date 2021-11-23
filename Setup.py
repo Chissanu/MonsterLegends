@@ -2,14 +2,24 @@ from tkinter import *
 import json
 import os
 import Game as game
+from pathlib import Path
+from winsound import *
+
 
 global name,stats,hp,atk,armor,spd
 
 name,stats,hp,atk,armor,spd,luck = "",10,100,10,10,10,5
 
-
+def click():
+    global play
+    print("Clicked")
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    clickSound = path + "click.wav"
+    PlaySound(clickSound,SND_ASYNC)
+    
 def increase(stat,charCreateMenu,remainStatsBox,textBox):
     global stats,hp,atk,armor,spd,luck
+    click()
     if stats >= 1:
         stats -= 1
         remainStatsText = "Remaining:" + str(stats)
@@ -44,6 +54,7 @@ def increase(stat,charCreateMenu,remainStatsBox,textBox):
         
 def decrease(stat,charCreateMenu,remainStatsBox,textBox):
     global stats,hp,atk,armor,spd,luck
+    click()
     stats += 1
     remainStatsText = "Remaining:" + str(stats)
     charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
@@ -74,6 +85,7 @@ def decrease(stat,charCreateMenu,remainStatsBox,textBox):
         print("Decrease Luck by One")
 
 def submit(charCreateName,charCreateMenu,root,create):
+    click()
     name = charCreateName.get()
     path = os.path.dirname(os.path.abspath(__file__)) + "/saves"
     myData = {

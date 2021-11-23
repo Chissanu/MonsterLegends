@@ -4,8 +4,15 @@ import Setup as char
 import Game as game
 import os
 from pathlib import Path
+from winsound import *
 from PIL import Image, ImageTk
 
+def click():
+    global play
+    print("Clicked")
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    clickSound = path + "click.wav"
+    PlaySound(clickSound,SND_ASYNC)
 
 def init_menu(root):
     global bg,startImg
@@ -43,14 +50,17 @@ def init_menu(root):
     startCanvas.pack(fill="both", expand=1)
     
 def change_to_start(root,startCanvas):
+    click()
     startCanvas.pack_forget()
     char.init_Char(root)
     
 def change_to_load(root,startCanvas):
+    click()
     startCanvas.pack_forget()
     game.init_game(root)
     
 def exit(root):
+    click()
     root.destroy()
 
     

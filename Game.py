@@ -6,9 +6,35 @@ from tkinter import *
 from PIL import ImageTk, Image
 from pathlib import Path
 from winsound import *
+import pygame as pg
 import json,os,time,random, math
 
 
+"""
+===============================================================
+                       Sound Effects
+===============================================================
+"""
+
+def bgMusic():
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    bgSound = path + "menu.wav"
+    bg = pg.mixer.Sound(bgSound)
+    bg.play()
+
+def click():
+    global play
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    clickSound = path + "click.wav"
+    click = pg.mixer.Sound(clickSound)
+    click.play()
+    
+def attackSound():
+    global play
+    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+    attackSound = path + "hit.wav"
+    atkSound = pg.mixer.Sound(attackSound)
+    atkSound.play()
 
 
 """
@@ -17,17 +43,9 @@ import json,os,time,random, math
 ===============================================================
 """
 def close_win(root):
+    click()
     root.destroy()
-
-def click(root):
-    global play
-    print("Clicked")
-    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
-    clickSound = path + "click.wav"
-    print(clickSound)
-    PlaySound(clickSound,SND_ASYNC)
-    
-
+        
 def goToGame(frame,root):
     global startBg,bg
     save()
@@ -48,7 +66,7 @@ def goToGame(frame,root):
 ===============================================================
 """
 def useSkill(btn,skill,count,root):
-    click(root)
+    click()
     Char.useScroll(skill,count,Mon)
     update(root)
     btn.config(text="OK")
@@ -70,7 +88,7 @@ def useSkill(btn,skill,count,root):
 def skill(root,previousFrame):
     global countText,skillCanvas
     gameFrame.pack_forget()
-    click(root)
+    click()
     skillList = {}
     useRedBtn = []
     useBlueBtn = []
@@ -179,7 +197,7 @@ def endGame(root):
 ===============================================================
 """
 def useItem(itemName,playerHp,count,bagCanvas):
-    click(root)
+    click()
     if itemName == "Red Scroll":
         pass
     else:
@@ -200,7 +218,7 @@ def bag(root,playerHp,previousFrame):
     x2,y2 = 960, 165 # Item name cords
     x3,y3 = 1050, 165
     x4,y4 = 0.58,0.136
-    click(root)
+    click()
     bagFrame = Frame(root)
     bagCanvas = Canvas(bagFrame,bg="#b1d0f2")
     bagText = bagCanvas.create_text(960,50,text="Inventory",font=("Helvetica", 40),anchor='center')
@@ -483,7 +501,7 @@ def shop(root,previousFrame):
 def back(frame,previousFrame,root):
     global bg
     update(root)
-    click(root)
+    click()
     frame.pack_forget()
     path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
     
@@ -548,7 +566,7 @@ def printSlow(myText):
         delay += delta
 
 def attack(playerHp,root):
-    click(root)       
+    click()
     if Mon.getCurrentHp() > 0:
         turn = Char.attack(Mon)
         gainStat = 0
@@ -564,6 +582,7 @@ def attack(playerHp,root):
                 dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("Comic Sans MS", 36,"bold italic"))
                 
                 text = "You did " + str(Char.getDmgDone()) + " Damage!"
+                attackSound()
                 playAnimation(root)
                 printSlow(text)
                 root.after(1000, gameCanvas.delete, dmgBox)       
@@ -680,8 +699,11 @@ def init_game(root):
     global Char
     genCanvas(root)
     Char = Player()
+    pg.mixer.init()
+    pg.init()
     genMon()
     game(root)
+    bgMusic()
 
 def genCanvas(root):
     global gameCanvas,gameFrame,Char
