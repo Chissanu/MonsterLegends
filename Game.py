@@ -197,7 +197,7 @@ def goToStats(root,endFrame):
     addPoint(root,endFrame)
   
 def endGame(root):
-    global endFrame, bg
+    global endFrame, endCanvas , bg
     gameFrame.pack_forget()
     endFrame = Frame(root)
     endCanvas = Canvas(endFrame,bg="#b1d0f2")
@@ -447,6 +447,8 @@ def addPoint(root,previousFrame):
 
     charCreateMenu.pack()
     create.pack(fill="both", expand=1)
+    root.bind('<Escape>', lambda x: back(create,previousFrame,root))
+    
 
 """
 ===============================================================
@@ -561,17 +563,26 @@ def shop(root,previousFrame):
 """
 
 def back(frame,previousFrame,root):
-    global bg
+    global bg,endBgImg
     update(root)
     click()
     frame.pack_forget()
     path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
+    altPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\\"
     
     bgLink = str(path) + randomBg
     bg = PhotoImage(file = bgLink)
-    startBg = gameCanvas.create_image(960, 440, image=bg)
-    
+    startBg = gameCanvas.create_image(960, 440, image=bg)  
     gameCanvas.tag_lower(startBg)
+    
+    try:
+        endLink = altPath + "menu\\end.png"
+        endBgImg = PhotoImage(file = endLink)
+        endBg = endCanvas.create_image(960, 540, image=endBgImg)  
+        endCanvas.tag_lower(endBg)
+        print("ENDING")
+    except:
+        pass
     
     previousFrame.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: close_win(root))
@@ -600,8 +611,13 @@ def playAnimation(root):
         gameCanvas.itemconfig(monPhoto,image=newPhoto)
         root.update()
         time.sleep(0.05)
-    newPhoto = PhotoImage(file = Mon.getMonName())
+    
+    if Char.getDifficulty() == 4:
+        newPhoto = PhotoImage(file = Mon.getBossName())
+    else:
+        newPhoto = PhotoImage(file = Mon.getMonName())
     gameCanvas.itemconfig(monPhoto,image=newPhoto)
+    update(root)
 
 
 def update(root):
@@ -646,10 +662,11 @@ def attack(playerHp,root):
         playerHpText = "HP:" + str(Char.getCurrentHp()) + "/" + str(Char.getHp())
         if turn == True:
             if Mon.getCurrentHp() <= 0:
-                pass
+                text = "You defeated " + str(Mon.getName())
+                printSlow(text)
             else:
                 dmgText = " - " + str(Char.getDmgDone())
-                dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("Comic Sans MS", 36,"bold italic"))
+                dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("alagard", 36,"bold italic"))
                 
                 text = "You did " + str(Char.getDmgDone()) + " Damage!"
                 attackSound("Mon")

@@ -20,7 +20,7 @@ root.attributes('-fullscreen',True)
 
 
 if running:
-    #menu.init_menu(root)
-    game.init_game(root)
+    menu.init_menu(root)
+    #game.init_game(root)
     root.mainloop()
 

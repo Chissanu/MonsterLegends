@@ -116,6 +116,9 @@ class Monster:
     def getMonName(self):
         return self.path + "\\" + self.monId
     
+    def getBossName(self):
+        return self.bossPath + "\\" + self.monId
+    
     def getPlayerStats(self):
         return self.playerStat
     
