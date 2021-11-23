@@ -180,6 +180,7 @@ class Player:
                 self.bag[i] = 0
                
     def useItem(self,name):
+        print("Use ", name)
         if name == "Hp Potion":
             if self.bag[name] > 0:
                 if self.currentHp <= self.hp:
@@ -191,6 +192,10 @@ class Player:
                     self.bag[name] -= 1
                 else:
                     pass
+        elif name == "Portal Warp":
+            print("Use scroll")
+            self.bag[name] -= 1
+        
         elif name == "Mp Potion":
             pass
           
@@ -198,7 +203,11 @@ class Player:
         if item == "Hp Potion" or item == "Mp Potion":
             if self.money >= price:       
                 self.bag[item] += 1
-                self.money -= 20
+                self.money -= price
+        elif item == "Portal Warp":
+            if self.money >= price:       
+                self.bag[item] += 1
+                self.money -= price
                 
     """
     ===============================================================

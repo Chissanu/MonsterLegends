@@ -29,7 +29,7 @@ class Item:
         self.name = img[:-4]
         return self.name
     
-    def getNameTag(self,img):
-        self.name = img[:-4] + " " + str(self.price) + "G"
+    def getNameTag(self,img,price):
+        self.name = img[:-4] + " " + str(price) + "G"
         return self.name
     

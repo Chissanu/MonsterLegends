@@ -229,23 +229,23 @@ def endGame(root):
                       Bag Frame
 ===============================================================
 """
-def useItem(itemName,playerHp,count,bagCanvas):
+def useItem(itemName,root):
     click()
-    if itemName == "Red Scroll":
-        pass
-    else:
-        Char.useItem(itemName)
-        
-    playerHpText = "HP:" + str(Char.getCurrentHp()) + "/" + str(Char.getHp())
-    gameCanvas.itemconfig(playerHp, text=playerHpText)
-    bagCanvas.itemconfig(count, text=Char.getBag(itemName))
+    Char.useItem(itemName)
+    if itemName == "Portal Warp":
+        bagFrame.pack_forget()
+        endGame(root)
+    elif itemName == "Hp Potion":
+        bagCanvas.itemconfig(hpCount,text=Char.getBag("Hp Potion"))
+     
     save()
     
 def bag(root,playerHp,previousFrame):
-    global imgList
+    global imgList,bagFrame, bagCanvas, hpCount,mpCount,warpCount
     gameFrame.pack_forget()
     item = Item()
     imgList = {}
+    useBtn = []
     itemID = 1
     x,y = 860 , 160 # Item Sprite cords
     x2,y2 = 960, 165 # Item name cords
@@ -271,10 +271,12 @@ def bag(root,playerHp,previousFrame):
     # Render item counts
     hpCount = bagCanvas.create_text(x3,y3,text=Char.getBag("Hp Potion"),font=("alagard", 20),anchor='center')
     mpCount = bagCanvas.create_text(x3,y3 + 80,text=Char.getBag("Mp Potion"),font=("alagard", 20),anchor='center')
+    warpCount = bagCanvas.create_text(x3,y3 + 160,text=Char.getBag("Portal Warp"),font=("alagard", 20),anchor='center')
     
     # Render Use Buttons
-    hpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Hp Potion",playerHp,hpCount,bagCanvas),font=("alagard", 15)).place(relx=x4, rely=y4)
-    mpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Mp Potion",playerHp,mpCount,bagCanvas),font=("alagard", 15)).place(relx=x4, rely=y4 + 0.07)
+    for i in item.getItemList():
+        useBtn.append(Button(bagCanvas, text="USE",command=lambda i = i:useItem(i[:-4],root),font=("alagard", 15)).place(relx=x4, rely=y4))
+        y4 += 0.075
     
     # Render stats box
     statBox = bagCanvas.create_text(650,150,text="Stats",font=("alagard", 35),anchor='center')
@@ -438,9 +440,7 @@ def addPoint(root,previousFrame):
 ===============================================================
 """
     
-def buy(itemName,item,shopCanvas,moneyTextBox,root):
-    text = "You bought ITEM NAME NAME MAXIMUM"
-    
+def buy(itemName,item,shopCanvas,moneyTextBox,root):   
     # Render bought item name
     buyBox = shopCanvas.create_rectangle(1400, 350, 1900, 500, fill="white",width=5, outline='black')
     itemName = itemName[:-4]
@@ -503,8 +503,12 @@ def shop(root,previousFrame):
     for imgs in item.getItemList():       
         img = PhotoImage(file = item.getItemPath(imgs)).subsample(4)
         imgList[img] = itemID
+        if imgs[:-4] == "Portal Warp":
+            price = 50
+        else:
+            price = 20
         shopCanvas.create_image(x, y, image=img)
-        shopCanvas.create_text(x3,y3,text=item.getNameTag(imgs),font=("alagard", 20))
+        shopCanvas.create_text(x3,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
         y += 80
         y3 += 80
         itemID += 1
@@ -530,13 +534,6 @@ def shop(root,previousFrame):
     for i in Char.getSkillList():
         skillBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 10)).place(relx=x2, rely=y2))
         y2 += 0.075
-        
-    # hpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
-    # mpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
-    # blueBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
-    # greenBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
-    # redBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
-    # backBtn = Button(shopCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
     
     # Render Frame and Canvas
     shopFrame.pack(fill="both", expand=1)

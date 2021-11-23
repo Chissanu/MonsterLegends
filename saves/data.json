@@ -1,15 +1,15 @@
 {
     "name": "Tor",
-    "stats": 6,
+    "stats": 16,
     "hp": 76,
     "atk": 16,
     "def": 10,
     "spd": 38,
     "luck": 5,
-    "money": 560,
+    "money": 430,
     "bag": {
-        "Hp Potion": 1,
-        "Mp Potion": 0,
+        "Hp Potion": 2,
+        "Mp Potion": 1,
         "Portal Warp": 0
     },
     "redSkills": {
@@ -45,5 +45,5 @@
         "Normal Speed Up": 1,
         "Rare Speed up": 1
     },
-    "currentHp": 157
+    "currentHp": 76
 }

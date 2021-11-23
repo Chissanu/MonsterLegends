@@ -13,16 +13,14 @@ root.geometry("1920x1080")
 root.configure(bg="#000000")
 root.attributes('-fullscreen',True)
 
+# Music
+# path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+# bgSound = path + "menu.wav"
+# PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
 
-path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
-bgSound = path + "menu.wav"
-PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
-
-fontPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\Font\\alagard.ttf"
-pyglet.font.add_file(fontPath)
 
 if running:
-    menu.init_menu(root)
-    #game.init_game(root)
+    #menu.init_menu(root)
+    game.init_game(root)
     root.mainloop()
 
