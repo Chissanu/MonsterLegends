@@ -1,12 +1,12 @@
 {
     "name": "Tor",
-    "stats": 66,
+    "stats": 75,
     "hp": 76,
     "atk": 16,
     "def": 10,
-    "spd": 38,
-    "luck": 500,
-    "money": 1330,
+    "spd": 380,
+    "luck": 100,
+    "money": 1530,
     "bag": {
         "Hp Potion": 2,
         "Mp Potion": 1,
@@ -18,7 +18,7 @@
         "Rare Bullet Storm": 0,
         "Common Precision Strike": 1,
         "Normal Precision Strike": 1,
-        "Rare Precision Strike": 33,
+        "Rare Precision Strike": 29,
         "Common Thunder Bolt": 2,
         "Normal Thunder Bolt": 0,
         "Rare Thunder Bolt": 0
@@ -45,5 +45,5 @@
         "Normal Speed Up": 1,
         "Rare Speed up": 1
     },
-    "currentHp": 46
+    "currentHp": 412
 }

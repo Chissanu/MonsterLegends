@@ -656,13 +656,16 @@ def attack(playerHp,root):
                 playAnimation(root)
                 printSlow(text)
                 root.after(1000, gameCanvas.delete, dmgBox)       
-        else:
+        elif turn == False:
             text = "You took " + str(Char.getDmgTaken()) + " Damage!"
             attackSound("Player")
             printSlow(text)
             if Char.getCurrentHp() <= 0:
                 print("You are dead")
                 death(root)
+        elif turn == "DODGE":
+            text = "You dodged the attack!"
+            printSlow(text)
          
         gameCanvas.itemconfig(monHp, text=monHpText)
         gameCanvas.itemconfig(playerHp, text=playerHpText)

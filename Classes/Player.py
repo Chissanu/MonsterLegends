@@ -145,31 +145,34 @@ class Player:
                 # ACTUAL VALUES
                 self.dmgDone = 1
                 
-                cri = random.randint(1,100 + self.luck)
-                print(cri)
-                if cri > 100:
-                    print("Lucky Strike!")
-                    self.dmgDone = self.dmgDone * int(cri / 100)
-                    
-                # FOR TESTING ONLY
-                #self.dmgDone = 5555
-                Mon.setHp(self.dmgDone)
+                criRoll = random.randint(1,100)
+                if criRoll <= (self.luck * 2):
+                    self.dmgDone = int((self.dmgDone * (self.luck / 10)))
+                    print("CRI DMG", self.dmgDone)
+                    if self.dmgDone == 1:
+                        self.dmgDone += 1
+                    Mon.setHp(self.dmgDone)
             else:
                 self.dmgDone = abs(Mon.getArmor() - self.atk)
                 
-                # FOR TESTING ONLY
-                #self.dmgDone = 9999
                 Mon.setHp(self.dmgDone)
             return True
         else:
             # print("Monster Attacked")
-            if self.armor - Mon.getAtk() >= 0:
-                self.dmgTaken = 1
-                self.currentHp -= self.dmgTaken
+            dodgeRoll = random.randint(1,100)
+            dodgeChance = (self.spd / 10) * (self.luck / 10)
+            print("Dodge change is ",dodgeChance) 
+            if dodgeRoll <= dodgeChance:
+                print("DODGED!")
+                return "DODGE"
             else:
-                self.dmgTaken = abs(self.armor - Mon.getAtk())
-                self.currentHp -= self.dmgTaken
-            return False
+                if self.armor - Mon.getAtk() >= 0:
+                    self.dmgTaken = 1
+                    self.currentHp -= self.dmgTaken
+                else:
+                    self.dmgTaken = abs(self.armor - Mon.getAtk())
+                    self.currentHp -= self.dmgTaken
+                return False
     
     """
     ===============================================================
