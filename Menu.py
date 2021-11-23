@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import font
 import Setup as char
+import Game as game
 import os
 from pathlib import Path
 from PIL import Image, ImageTk
@@ -29,7 +30,7 @@ def init_menu(root):
     startBtd = Button(startCanvas,text="Start",font=("Helvetica", 40),command=lambda:change_to_start(root,startCanvas))
     startBtd.place(relx=0.5, rely=0.3, anchor="center")
     
-    conBtd = Button(startCanvas,text="Continue",font=("Helvetica", 40),command=change_to_load)
+    conBtd = Button(startCanvas,text="Continue",font=("Helvetica", 40),command=lambda:change_to_load(root,startCanvas))
     conBtd.place(relx=0.5, rely=0.5, anchor="center")
     
     exitBtd = Button(startCanvas,text="Exit",font=("Helvetica", 40),command=lambda:exit(root))
@@ -45,10 +46,9 @@ def change_to_start(root,startCanvas):
     startCanvas.pack_forget()
     char.init_Char(root)
     
-def change_to_load():
-    pass
-    # load.pack(fill='both', expand=1)
-    # start.pack_forget()
+def change_to_load(root,startCanvas):
+    startCanvas.pack_forget()
+    game.init_game(root)
     
 def exit(root):
     root.destroy()

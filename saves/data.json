@@ -1,13 +1,16 @@
 {
-    "name": "s",
-    "stats": 10,
+    "name": "Oak",
+    "stats": 0,
     "hp": 100,
     "atk": 10,
     "def": 10,
-    "spd": 10,
+    "spd": 20,
     "luck": 5,
     "money": 100,
-    "bag": {},
+    "bag": {
+        "Hp Potion": 0,
+        "Mp Potion": 0
+    },
     "redSkills": {
         "Common Bullet Storm": 0,
         "Normal Bullet Storm": 0,
@@ -41,5 +44,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 100
+    "currentHp": 72
 }

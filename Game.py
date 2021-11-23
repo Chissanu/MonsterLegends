@@ -26,7 +26,7 @@ def click(root):
     clickSound = path + "click.wav"
     print(clickSound)
     PlaySound(clickSound,SND_ASYNC)
-    root.update()
+    
 
 def goToGame(frame,root):
     global startBg,bg
