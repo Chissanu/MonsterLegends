@@ -28,14 +28,19 @@ def click():
     clickSound = path + "click.wav"
     click = pg.mixer.Sound(clickSound)
     click.play()
-    
-def attackSound():
+
+def attackSound(turn):
     global play
     path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
-    attackSound = path + "hit.wav"
-    atkSound = pg.mixer.Sound(attackSound)
-    atkSound.play()
-
+    if turn == "Mon":
+        attackSound = path + "hit.wav"
+        atkSound = pg.mixer.Sound(attackSound)
+        atkSound.play()
+    else:
+        turn == "Player"
+        hurtingSound = path + "hurt.wav"
+        hurtSound = pg.mixer.Sound(hurtingSound)
+        hurtSound.play()
 
 """
 ===============================================================
@@ -143,6 +148,34 @@ def skill(root,previousFrame):
     skillFrame.pack(fill="both", expand=1)
     skillCanvas.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda x: back(skillFrame,previousFrame,root))
+    
+"""
+===============================================================
+                       Death Scene
+===============================================================
+"""
+
+def death(root):
+    global text,bg
+    gameFrame.pack_forget()
+    
+    deathFrame = Frame(root)
+    deathCanvas = Canvas(deathFrame,bg="#b1d0f2")
+    
+    bgPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\\Menu\\death.png"
+    textPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\fancyText\\gameOver.png"
+    
+    bg = PhotoImage(file = bgPath)
+    overBg = deathCanvas.create_image(960, 540, image=bg)
+    
+    text = PhotoImage(file = textPath)
+    overText = deathCanvas.create_image(960, 340, image=text)
+    
+    
+    deathFrame.pack(fill="both", expand=1)
+    deathCanvas.pack(fill="both", expand=1)
+    root.bind('<Escape>', lambda e: close_win(root))
+
 
 """
 ===============================================================
@@ -582,16 +615,17 @@ def attack(playerHp,root):
                 dmgBox = gameCanvas.create_text(1250,180, text=dmgText, fill="red", font=("Comic Sans MS", 36,"bold italic"))
                 
                 text = "You did " + str(Char.getDmgDone()) + " Damage!"
-                attackSound()
+                attackSound("Mon")
                 playAnimation(root)
                 printSlow(text)
                 root.after(1000, gameCanvas.delete, dmgBox)       
         else:
             text = "You took " + str(Char.getDmgTaken()) + " Damage!"
+            attackSound("Player")
             printSlow(text)
             if Char.getCurrentHp() <= 0:
                 print("You are dead")
-                root.destroy()
+                death(root)
          
         gameCanvas.itemconfig(monHp, text=monHpText)
         gameCanvas.itemconfig(playerHp, text=playerHpText)
