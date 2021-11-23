@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 from pathlib import Path
 from winsound import *
 import pygame as pg
-import json,os,time,random, math
+import json,os,time,random, math,pyglet
 
 
 """
@@ -108,43 +108,43 @@ def skill(root,previousFrame):
     
     skillFrame = Frame(root)
     skillCanvas = Canvas(skillFrame,bg="#b1d0f2")
-    skillText = skillCanvas.create_text(960,50,text="Scroll List",font=("Helvetica", 40),anchor='center')
+    skillText = skillCanvas.create_text(960,50,text="Scroll List",font=("alagard", 40),anchor='center')
     skillBox = skillCanvas.create_rectangle(300, 100, 1620, 800, fill="white",width=5, outline='black')
     
     # Render Scrolls Name
-    redText = skillCanvas.create_text(370,130,text="Red Scrolls",font=("Helvetica", 20),anchor='w')  
-    blueText = skillCanvas.create_text(900,130,text="Blue Scrolls",font=("Helvetica", 20),anchor='w')
-    greenText = skillCanvas.create_text(1320,130,text="Blue Scrolls",font=("Helvetica", 20),anchor='w')   
+    redText = skillCanvas.create_text(370,130,text="Red Scrolls",font=("alagard", 20),anchor='w')  
+    blueText = skillCanvas.create_text(900,130,text="Blue Scrolls",font=("alagard", 20),anchor='w')
+    greenText = skillCanvas.create_text(1320,130,text="Blue Scrolls",font=("alagard", 20),anchor='w')   
     
     # Red Scrolls
     for key,value in Char.getRedSkill().items():
-        text = skillCanvas.create_text(320,y5,text=key,font=("Helvetica", 15),anchor='w')
-        countText = skillCanvas.create_text(600,y5,text=value,font=("Helvetica", 15),anchor='w')
-        redBtn = Button(skillCanvas, text="USE", font=("Helvetica", 10))
+        text = skillCanvas.create_text(320,y5,text=key,font=("alagard", 15),anchor='w')
+        countText = skillCanvas.create_text(600,y5,text=value,font=("alagard", 15),anchor='w')
+        redBtn = Button(skillCanvas, text="USE", font=("alagard", 10))
         redBtn.config(
         command=lambda btn=redBtn, key=key, value=value: useSkill(btn, key, value, root))
         redBtn.place(x=630, y=y5-15)
         useRedBtn.append(redBtn)
-        #useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("Helvetica", 10)).place(x=630, y=y5-15))
+        #useRedBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("alagard", 10)).place(x=630, y=y5-15))
         y5 += 30
     
     # Blue Scrolls
     y5 = 160
     for key,value in Char.getBlueSkill().items():
-        text = skillCanvas.create_text(850,y5,text=key,font=("Helvetica", 15),anchor='w')
-        countText = skillCanvas.create_text(1100,y5,text=value,font=("Helvetica", 15),anchor='w')
-        useBlueBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("Helvetica", 10)).place(x=1130, y=y5-15))
+        text = skillCanvas.create_text(850,y5,text=key,font=("alagard", 15),anchor='w')
+        countText = skillCanvas.create_text(1100,y5,text=value,font=("alagard", 15),anchor='w')
+        useBlueBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("alagard", 10)).place(x=1130, y=y5-15))
         y5 += 30
     
     # Green Scrolls
     y5 = 160   
     for key,value in Char.getGreenSkill().items():
-        text = skillCanvas.create_text(1250,y5,text=key,font=("Helvetica", 15),anchor='w')
-        countText = skillCanvas.create_text(1500,y5,text=value,font=("Helvetica", 15),anchor='w')
-        useGreenBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("Helvetica", 10)).place(x=1530, y=y5-15))
+        text = skillCanvas.create_text(1250,y5,text=key,font=("alagard", 15),anchor='w')
+        countText = skillCanvas.create_text(1500,y5,text=value,font=("alagard", 15),anchor='w')
+        useGreenBtn.append(Button(skillCanvas, text="USE",command=lambda key = key:useSkill(key,value,root),font=("alagard", 10)).place(x=1530, y=y5-15))
         y5 += 30
     
-    backBtn = Button(skillCanvas,text=" Back ",font=("Helvetica", 15), command= lambda: back(skillFrame,previousFrame,root)).place(x=1530,y=735)
+    backBtn = Button(skillCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(skillFrame,previousFrame,root)).place(x=1530,y=735)
     skillFrame.pack(fill="both", expand=1)
     skillCanvas.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda x: back(skillFrame,previousFrame,root))
@@ -206,17 +206,17 @@ def endGame(root):
     Char.removeBuff(Mon)
     endText = "You defeated the monster " + str(Mon.getName()) + "!"
     
-    endTextBox = endCanvas.create_text(960,200,text=endText,font=("Helvetica", 40),anchor='center')
-    diffText = endCanvas.create_text(960,350,text="Choose difficultly!",font=("Helvetica", 40),anchor='center')
+    endTextBox = endCanvas.create_text(960,200,text=endText,font=("alagard", 40),anchor='center')
+    diffText = endCanvas.create_text(960,350,text="Choose difficultly!",font=("alagard", 40),anchor='center')
 
-    easyBtn = Button(endCanvas, text="Easy",command=lambda:newGame(root,1,endFrame),width=30,font=("Helvetica", 15)).place(x=180, y=500)
-    medBtn = Button(endCanvas, text="Medium",command=lambda:newGame(root,2,endFrame),width=30,font=("Helvetica", 15)).place(x=800, y=500)
-    hardBtn = Button(endCanvas, text="Hard",command=lambda:newGame(root,3,endFrame),width=30,font=("Helvetica", 15)).place(x=1440, y=500)
-    bossBtn = Button(endCanvas, text="BOSS",command=lambda:newGame(root,4,endFrame),width=30,font=("Helvetica", 15)).place(x=800, y=700)
+    easyBtn = Button(endCanvas, text="Easy",command=lambda:newGame(root,1,endFrame),width=30,font=("alagard", 15)).place(x=180, y=500)
+    medBtn = Button(endCanvas, text="Medium",command=lambda:newGame(root,2,endFrame),width=30,font=("alagard", 15)).place(x=800, y=500)
+    hardBtn = Button(endCanvas, text="Hard",command=lambda:newGame(root,3,endFrame),width=30,font=("alagard", 15)).place(x=1440, y=500)
+    bossBtn = Button(endCanvas, text="BOSS",command=lambda:newGame(root,4,endFrame),width=30,font=("alagard", 15)).place(x=800, y=700)
 
-    shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("Helvetica", 15)).place(x=180, y=700)
-    saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("Helvetica", 15)).place(x=800, y=900)
-    statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("Helvetica", 15)).place(x=1440, y=700)
+    shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("alagard", 15)).place(x=180, y=700)
+    saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("alagard", 15)).place(x=800, y=900)
+    statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("alagard", 15)).place(x=1440, y=700)
 
     endFrame.pack(fill="both", expand=1)
     endCanvas.pack(fill="both", expand=1)
@@ -254,7 +254,7 @@ def bag(root,playerHp,previousFrame):
     click()
     bagFrame = Frame(root)
     bagCanvas = Canvas(bagFrame,bg="#b1d0f2")
-    bagText = bagCanvas.create_text(960,50,text="Inventory",font=("Helvetica", 40),anchor='center')
+    bagText = bagCanvas.create_text(960,50,text="Inventory",font=("alagard", 40),anchor='center')
     statBox = bagCanvas.create_rectangle(500, 100, 800, 800, fill="white",width=5, outline='black')
     bagBox = bagCanvas.create_rectangle(800, 100, 1360, 800, fill="white",width=5, outline='black')
 
@@ -263,42 +263,42 @@ def bag(root,playerHp,previousFrame):
             img = PhotoImage(file = item.getItemPath(imgs)).subsample(4)
             imgList[img] = itemID
             bagCanvas.create_image(x, y, image=img)
-            bagCanvas.create_text(x2,y2,text=item.getName(imgs),font=("Helvetica", 20))
+            bagCanvas.create_text(x2,y2,text=item.getName(imgs),font=("alagard", 20))
             y += 80
             y2 += 80
             itemID += 1
     
     # Render item counts
-    hpCount = bagCanvas.create_text(x3,y3,text=Char.getBag("Hp Potion"),font=("Helvetica", 20),anchor='center')
-    mpCount = bagCanvas.create_text(x3,y3 + 80,text=Char.getBag("Mp Potion"),font=("Helvetica", 20),anchor='center')
+    hpCount = bagCanvas.create_text(x3,y3,text=Char.getBag("Hp Potion"),font=("alagard", 20),anchor='center')
+    mpCount = bagCanvas.create_text(x3,y3 + 80,text=Char.getBag("Mp Potion"),font=("alagard", 20),anchor='center')
     
     # Render Use Buttons
-    hpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Hp Potion",playerHp,hpCount,bagCanvas),font=("Helvetica", 15)).place(relx=x4, rely=y4)
-    mpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Mp Potion",playerHp,mpCount,bagCanvas),font=("Helvetica", 15)).place(relx=x4, rely=y4 + 0.07)
+    hpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Hp Potion",playerHp,hpCount,bagCanvas),font=("alagard", 15)).place(relx=x4, rely=y4)
+    mpUseBtn = Button(bagCanvas, text="USE",command=lambda:useItem("Mp Potion",playerHp,mpCount,bagCanvas),font=("alagard", 15)).place(relx=x4, rely=y4 + 0.07)
     
     # Render stats box
-    statBox = bagCanvas.create_text(650,150,text="Stats",font=("Helvetica", 35),anchor='center')
+    statBox = bagCanvas.create_text(650,150,text="Stats",font=("alagard", 35),anchor='center')
 
     nameText = "Name:" + str(Char.getName())
-    nameTextBox = bagCanvas.create_text(650,240,text=nameText,font=("Helvetica", 20),anchor='center')
+    nameTextBox = bagCanvas.create_text(650,240,text=nameText,font=("alagard", 20),anchor='center')
 
     hpText = "Health: " + str(Char.getHp())
-    hpTextBox = bagCanvas.create_text(650,290,text=hpText,font=("Helvetica", 20),anchor='center')
+    hpTextBox = bagCanvas.create_text(650,290,text=hpText,font=("alagard", 20),anchor='center')
 
     atkText = "Attack: " + str(Char.getAtk())
-    atkTextBox = bagCanvas.create_text(650,340,text=atkText,font=("Helvetica", 20),anchor='center')
+    atkTextBox = bagCanvas.create_text(650,340,text=atkText,font=("alagard", 20),anchor='center')
 
     defText = "Armor: " + str(Char.getArmor())
-    defTextBox = bagCanvas.create_text(650,390,text=defText,font=("Helvetica", 20),anchor='center')
+    defTextBox = bagCanvas.create_text(650,390,text=defText,font=("alagard", 20),anchor='center')
 
     spdText = "Speed: " + str(Char.getSpd())
-    spdTextBox = bagCanvas.create_text(650,440,text=spdText,font=("Helvetica", 20),anchor='center')
+    spdTextBox = bagCanvas.create_text(650,440,text=spdText,font=("alagard", 20),anchor='center')
     
     luckText = "Luck: " + str(Char.getLuck())
-    spdTextBox = bagCanvas.create_text(650,490,text=luckText,font=("Helvetica", 20),anchor='center')
+    spdTextBox = bagCanvas.create_text(650,490,text=luckText,font=("alagard", 20),anchor='center')
 
     moneyText = "Money: " + str(Char.getMoney())
-    moneyTextBox = bagCanvas.create_text(650,530,text=moneyText,font=("Helvetica", 20),anchor='center')
+    moneyTextBox = bagCanvas.create_text(650,530,text=moneyText,font=("alagard", 20),anchor='center')
 
     bagFrame.pack(fill="both", expand=1)
     bagCanvas.pack(fill="both", expand=1)
@@ -378,56 +378,56 @@ def decrease(stat,charCreateMenu,remainStatsBox,textBox):
 def addPoint(root,previousFrame):
     xBox1, yBox1, xBox2, yBox2 = 100,150,300,200
     create = Frame(root,bg="#000000")
-    label1 = Label(create, text="STATS",foreground="cyan",bg="#318beb",font=("Helvetica", 40))
+    label1 = Label(create, text="STATS",foreground="cyan",bg="#318beb",font=("alagard", 40))
     label1.pack(pady=20)
 
     charCreateMenu = Canvas(create, bg="#b1d0f2",height=700,width=400)
     charCreateMenu.create_window(200,100)
 
     # Username Text Box
-    charNameText = charCreateMenu.create_text(200,80,text=Char.getName(),font=("Helvetica", 40))
+    charNameText = charCreateMenu.create_text(200,80,text=Char.getName(),font=("alagard", 40))
 
     # Remaining Stats Box
     RemainStat = charCreateMenu.create_rectangle(xBox1, yBox1, xBox2, yBox2, fill="#ffffff")
     remainStatsText = "Remaining:" + str(Char.getStats())
-    remainStatsBox = charCreateMenu.create_text(200,175,text=remainStatsText,font=("Helvetica", 20))
+    remainStatsBox = charCreateMenu.create_text(200,175,text=remainStatsText,font=("alagard", 20))
 
     # Remaining Health Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 80, xBox2, yBox2 + 80, fill="#ffffff")
     hpText = "Health:" + str(Char.getHp())
-    hpTextBox = charCreateMenu.create_text(200,255,text=hpText,font=("Helvetica", 20))
+    hpTextBox = charCreateMenu.create_text(200,255,text=hpText,font=("alagard", 20))
     hpButtonIncrease = Button(create, text=" + ", command=lambda:increase("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.56, rely=0.325)
     hpButtonDecrease = Button(create, text=" - ", command=lambda:decrease("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.43, rely=0.325)
 
     # Remaining Attack Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 160, xBox2, yBox2 + 160, fill="#ffffff")
     atkText = "Attack:" + str(Char.getAtk())
-    atkTextBox = charCreateMenu.create_text(200,335,text=atkText,font=("Helvetica", 20))
+    atkTextBox = charCreateMenu.create_text(200,335,text=atkText,font=("alagard", 20))
     atkButtonIncrease = Button(create, text=" + ", command=lambda:increase("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.56, rely=0.398)
     atkButtonDecrease = Button(create, text=" - ", command=lambda:decrease("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.43, rely=0.398)
 
     # Remaining Defend Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 240, xBox2, yBox2 + 240, fill="#ffffff")
     defText = "Defend:" + str(Char.getArmor())
-    defTextBox = charCreateMenu.create_text(200,415,text=defText,font=("Helvetica", 20))
+    defTextBox = charCreateMenu.create_text(200,415,text=defText,font=("alagard", 20))
     defButtonIncrease = Button(create, text=" + ", command=lambda:increase("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.56, rely=0.471)
     defButtonDecrease = Button(create, text=" - ", command=lambda:decrease("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.43, rely=0.471)
 
     # Remaining Speed Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 320, xBox2, yBox2 + 320, fill="#ffffff")
     spdText = "Speed:" + str(Char.getSpd())
-    spdTextBox = charCreateMenu.create_text(200,495,text=spdText,font=("Helvetica", 20))
+    spdTextBox = charCreateMenu.create_text(200,495,text=spdText,font=("alagard", 20))
     spdButtonIncrease = Button(create, text=" + ", command=lambda:increase("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.56, rely=0.544)
     spdButtonDecrease = Button(create, text=" - ", command=lambda:decrease("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.43, rely=0.544)
     
     # Remaining Luck Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 400, xBox2, yBox2 + 400, fill="#ffffff")
     luckText = "Luck:" + str(Char.getLuck())
-    luckTextBox = charCreateMenu.create_text(200,575,text=luckText,font=("Helvetica", 20))
+    luckTextBox = charCreateMenu.create_text(200,575,text=luckText,font=("alagard", 20))
     luckButtonIncrease = Button(create, text=" + ", command=lambda:increase("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.56, rely=0.618)
     luckButtonDecrease = Button(create, text=" - ", command=lambda:decrease("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.43, rely=0.618)
 
-    backBtn = Button(create,text=" Back ",font=("Helvetica", 15), command= lambda: back(create,previousFrame,root)).place(x=1075,y=760)
+    backBtn = Button(create,text=" Back ",font=("alagard", 15), command= lambda: back(create,previousFrame,root)).place(x=1075,y=760)
 
     charCreateMenu.pack()
     create.pack(fill="both", expand=1)
@@ -456,7 +456,7 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
         itemName = Char.buyScroll(Char,"Green Scroll",20)
     
     text = "You bought " + itemName
-    buyText = shopCanvas.create_text(1650,420,text=text,font=("Helvetica", 18))
+    buyText = shopCanvas.create_text(1650,420,text=text,font=("alagard", 18))
     root.after(3000, shopCanvas.delete, buyText,buyBox) 
     
     moneyText = "Money: " + str(Char.getMoney()) + "G"
@@ -486,7 +486,7 @@ def shop(root,previousFrame):
     x3,y3 = 800, 165 # Item name cords
     
     # Render Shop GUI
-    shopText = shopCanvas.create_text(960,50,text="SHOP",font=("Helvetica", 40),anchor='center')
+    shopText = shopCanvas.create_text(960,50,text="SHOP",font=("alagard", 40),anchor='center')
     shopBox = shopCanvas.create_rectangle(560, 100, 1360, 800, fill="white",width=5, outline='black')
     
     # Render items
@@ -494,7 +494,7 @@ def shop(root,previousFrame):
         img = PhotoImage(file = item.getItemPath(imgs)).subsample(4)
         imgList[img] = itemID
         shopCanvas.create_image(x, y, image=img)
-        shopCanvas.create_text(x3,y3,text=item.getNameTag(imgs),font=("Helvetica", 20))
+        shopCanvas.create_text(x3,y3,text=item.getNameTag(imgs),font=("alagard", 20))
         y += 80
         y3 += 80
         itemID += 1
@@ -503,22 +503,22 @@ def shop(root,previousFrame):
         img = PhotoImage(file = Char.getSkillPath(imgs)).subsample(4)
         skillList[img] = skillID
         shopCanvas.create_image(x, y, image=img)
-        shopCanvas.create_text(x3,y3,text = Char.getSkillTag(imgs,20),font=("Helvetica", 20))
+        shopCanvas.create_text(x3,y3,text = Char.getSkillTag(imgs,20),font=("alagard", 20))
         y += 80
         y3 += 80  
         skillID += 1
     
     # Render Money
     moneyText = "Money: " + str(Char.getMoney()) + "G"
-    moneyTextBox = shopCanvas.create_text(960,760,text=moneyText,font=("Helvetica", 20))
+    moneyTextBox = shopCanvas.create_text(960,760,text=moneyText,font=("alagard", 20))
        
     # Render Buy
-    hpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
-    mpBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
-    blueBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
-    greenBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
-    redBtn = Button(shopCanvas,text=" Buy ",font=("Helvetica", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
-    backBtn = Button(shopCanvas,text=" Back ",font=("Helvetica", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
+    hpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
+    mpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
+    blueBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
+    greenBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
+    redBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
+    backBtn = Button(shopCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
     
     # Render Frame and Canvas
     shopFrame.pack(fill="both", expand=1)
@@ -731,6 +731,8 @@ def new(root):
     
 def init_game(root):
     global Char
+    fontPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\Font\\alagard.ttf"
+    pyglet.font.add_file(fontPath)
     genCanvas(root)
     Char = Player()
     pg.mixer.init()
@@ -759,11 +761,11 @@ def game(root):
     monDefText = "Def: " + str(Mon.getArmor())
     monSpdText = "Spd: " + str(Mon.getSpd())
 
-    monName = gameCanvas.create_text(250,50,text=(Mon.getName()),font=("Helvetica", 30),fill="white")
-    monHp = gameCanvas.create_text(64,100,text=monHpText,font=("Helvetica", 20),anchor='w',fill="white")
-    monAtk = gameCanvas.create_text(64,150,text=monAtkText,font=("Helvetica", 20),anchor='w',fill="white")
-    monDef = gameCanvas.create_text(280,100,text=monDefText,font=("Helvetica", 20),anchor='w',fill="white")
-    monSpd = gameCanvas.create_text(280,150,text=monSpdText,font=("Helvetica", 20),anchor='w',fill="white")
+    monName = gameCanvas.create_text(250,50,text=(Mon.getName()),font=("alagard", 30),fill="white")
+    monHp = gameCanvas.create_text(64,100,text=monHpText,font=("alagard", 20),anchor='w',fill="white")
+    monAtk = gameCanvas.create_text(64,150,text=monAtkText,font=("alagard", 20),anchor='w',fill="white")
+    monDef = gameCanvas.create_text(280,100,text=monDefText,font=("alagard", 20),anchor='w',fill="white")
+    monSpd = gameCanvas.create_text(280,150,text=monSpdText,font=("alagard", 20),anchor='w',fill="white")
     
 
     # Render Character's health
@@ -775,22 +777,22 @@ def game(root):
     playerDefText = "Def:" + str(Char.getArmor())
     playerSpdText = "Spd:" + str(Char.getSpd())
 
-    playerName = gameCanvas.create_text(1650,640,text=(Char.getName()),font=("Helvetica", 30),fill="white")
-    playerHp = gameCanvas.create_text(1460,680,text=playerHpText,font=("Helvetica", 20),anchor='w',fill="white")
-    playerAtk = gameCanvas.create_text(1690,680,text=playerAtkText,font=("Helvetica", 20),anchor='w',fill="white")
-    playerDef = gameCanvas.create_text(1460,730,text=playerDefText,font=("Helvetica", 20),anchor='w',fill="white")
-    playerSpd = gameCanvas.create_text(1690,730,text=playerSpdText,font=("Helvetica", 20),anchor='w',fill="white")
+    playerName = gameCanvas.create_text(1650,640,text=(Char.getName()),font=("alagard", 30),fill="white")
+    playerHp = gameCanvas.create_text(1460,680,text=playerHpText,font=("alagard", 20),anchor='w',fill="white")
+    playerAtk = gameCanvas.create_text(1690,680,text=playerAtkText,font=("alagard", 20),anchor='w',fill="white")
+    playerDef = gameCanvas.create_text(1460,730,text=playerDefText,font=("alagard", 20),anchor='w',fill="white")
+    playerSpd = gameCanvas.create_text(1690,730,text=playerSpdText,font=("alagard", 20),anchor='w',fill="white")
 
     # Render Game Message
     foundText = "You found " + Mon.getName() + "!"
-    gameText = gameCanvas.create_text(560,930,text="",font=("Helvetica", 30),fill="white")
+    gameText = gameCanvas.create_text(560,930,text="",font=("alagard", 30),fill="white")
     printSlow(foundText)
 
-    atkBtn = Button(gameCanvas, text="ATK",command=lambda:attack(playerHp,root),width=10,border=5,font=("Helvetica", 20)).place(relx=0.65, rely=0.8)
-    bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp,gameFrame),font=("Helvetica", 20)).place(relx=0.65, rely=0.9)
-    skillbtn = Button(gameCanvas, text="SCROLL",width=10,border=5,command=lambda:skill(root,gameFrame),font=("Helvetica", 20)).place(relx=0.768, rely=0.8)
-    runBtn = Button(gameCanvas, text="RUN",width=10,border=5,command=lambda:run(root),font=("Helvetica", 20)).place(relx=0.768, rely=0.9)
-    saveBtn = Button(gameCanvas, text="Save",command=lambda:save(),width=10,height=4,border=5,font=("Helvetica", 20)).place(relx=0.89, rely=0.805)
+    atkBtn = Button(gameCanvas, text="ATK",command=lambda:attack(playerHp,root),width=10,border=5,font=("alagard", 20)).place(relx=0.65, rely=0.8)
+    bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp,gameFrame),font=("alagard", 20)).place(relx=0.65, rely=0.9)
+    skillbtn = Button(gameCanvas, text="SCROLL",width=10,border=5,command=lambda:skill(root,gameFrame),font=("alagard", 20)).place(relx=0.768, rely=0.8)
+    runBtn = Button(gameCanvas, text="RUN",width=10,border=5,command=lambda:run(root),font=("alagard", 20)).place(relx=0.768, rely=0.9)
+    saveBtn = Button(gameCanvas, text="Save",command=lambda:save(),width=10,height=4,border=5,font=("alagard", 20)).place(relx=0.89, rely=0.805)
     
     gameFrame.pack(fill="both", expand=1)
     gameCanvas.pack(fill="both", expand=1)

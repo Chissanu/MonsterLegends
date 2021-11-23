@@ -3,7 +3,7 @@ import Game as game
 from tkinter import *
 from pathlib import Path
 from winsound import *
-import os
+import os,pyglet
 
 running = True
 
@@ -14,12 +14,15 @@ root.configure(bg="#000000")
 root.attributes('-fullscreen',True)
 
 
-# path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
+path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
 # bgSound = path + "menu.wav"
 # PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
 
+fontPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\Font\\alagard.ttf"
+pyglet.font.add_file(fontPath)
+
 if running:
-    #menu.init_menu(root)
-    game.init_game(root)
+    menu.init_menu(root)
+    #game.init_game(root)
     root.mainloop()
 

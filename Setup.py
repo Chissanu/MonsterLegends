@@ -4,7 +4,7 @@ import os
 import Game as game
 from pathlib import Path
 from winsound import *
-
+import pyglet
 
 global name,stats,hp,atk,armor,spd
 
@@ -149,59 +149,61 @@ def close_win(root):
     root.destroy()
        
 def init_Char(root):
+    fontPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\Font\\alagard.ttf"
+    pyglet.font.add_file(fontPath)
     xBox1, yBox1, xBox2, yBox2 = 100,150,300,200
     create = Frame(root,bg="#000000")
-    label1 = Label(create, text="Create Character",foreground="cyan",bg="#318beb",font=("Helvetica", 40))
+    label1 = Label(create, text="Create Character",foreground="cyan",font=("alagard", 40))
     label1.pack(pady=20)
-
+    
     charCreateMenu = Canvas(create, bg="#b1d0f2",height=700,width=400)
     charCreateMenu.create_window(200,100)
 
     # Username Text Box
-    charCreateName = Entry(root,width=12,font=("Calibri 41"), justify='center')
+    charCreateName = Entry(root,width=12,font=("alagard 41"), justify='center')
     charCreateMenu.create_window(200, 80, window=charCreateName)
 
     # Remaining Stats Box
     RemainStat = charCreateMenu.create_rectangle(xBox1, yBox1, xBox2, yBox2, fill="#ffffff")
     remainStatsText = "Remaining:" + str(stats)
-    remainStatsBox = charCreateMenu.create_text(200,175,text=remainStatsText,font=("Helvetica", 20))
+    remainStatsBox = charCreateMenu.create_text(200,175,text=remainStatsText,font=("alagard", 20))
 
     # Remaining Health Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 80, xBox2, yBox2 + 80, fill="#ffffff")
     hpText = "Health:" + str(hp)
-    hpTextBox = charCreateMenu.create_text(200,255,text=hpText,font=("Helvetica", 20))
+    hpTextBox = charCreateMenu.create_text(200,255,text=hpText,font=("alagard", 20))
     hpButtonIncrease = Button(create, text=" + ", command=lambda:increase("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.56, rely=0.325)
     hpButtonDecrease = Button(create, text=" - ", command=lambda:decrease("hp",charCreateMenu,remainStatsBox,hpTextBox)).place(relx=0.43, rely=0.325)
 
     # Remaining Attack Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 160, xBox2, yBox2 + 160, fill="#ffffff")
     atkText = "Attack:" + str(atk)
-    atkTextBox = charCreateMenu.create_text(200,335,text=atkText,font=("Helvetica", 20))
+    atkTextBox = charCreateMenu.create_text(200,335,text=atkText,font=("alagard", 20))
     atkButtonIncrease = Button(create, text=" + ", command=lambda:increase("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.56, rely=0.398)
     atkButtonDecrease = Button(create, text=" - ", command=lambda:decrease("atk",charCreateMenu,remainStatsBox,atkTextBox)).place(relx=0.43, rely=0.398)
 
     # Remaining Defend Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 240, xBox2, yBox2 + 240, fill="#ffffff")
     defText = "Defend:" + str(armor)
-    defTextBox = charCreateMenu.create_text(200,415,text=defText,font=("Helvetica", 20))
+    defTextBox = charCreateMenu.create_text(200,415,text=defText,font=("alagard", 20))
     defButtonIncrease = Button(create, text=" + ", command=lambda:increase("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.56, rely=0.471)
     defButtonDecrease = Button(create, text=" - ", command=lambda:decrease("armor",charCreateMenu,remainStatsBox,defTextBox)).place(relx=0.43, rely=0.471)
 
     # Remaining Speed Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 320, xBox2, yBox2 + 320, fill="#ffffff")
     spdText = "Speed:" + str(spd)
-    spdTextBox = charCreateMenu.create_text(200,495,text=spdText,font=("Helvetica", 20))
+    spdTextBox = charCreateMenu.create_text(200,495,text=spdText,font=("alagard", 20))
     spdButtonIncrease = Button(create, text=" + ", command=lambda:increase("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.56, rely=0.544)
     spdButtonDecrease = Button(create, text=" - ", command=lambda:decrease("spd",charCreateMenu,remainStatsBox,spdTextBox)).place(relx=0.43, rely=0.544)
     
     # Remaining Luck Stats
     charCreateMenu.create_rectangle(xBox1, yBox1 + 400, xBox2, yBox2 + 400, fill="#ffffff")
     luckText = "Luck:" + str(luck)
-    luckTextBox = charCreateMenu.create_text(200,575,text=luckText,font=("Helvetica", 20))
+    luckTextBox = charCreateMenu.create_text(200,575,text=luckText,font=("alagard", 20))
     luckButtonIncrease = Button(create, text=" + ", command=lambda:increase("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.56, rely=0.618)
     luckButtonDecrease = Button(create, text=" - ", command=lambda:decrease("luck",charCreateMenu,remainStatsBox,luckTextBox)).place(relx=0.43, rely=0.618)
 
-    submitBtn = Button(create, text="Next", command=lambda:submit(charCreateName,charCreateMenu,root,create),font=("Helvetica", 15)).place(relx=0.485, rely=0.7)
+    submitBtn = Button(create, text="Next", command=lambda:submit(charCreateName,charCreateMenu,root,create),font=("alagard", 15)).place(relx=0.485, rely=0.7)
 
     charCreateMenu.pack()
     create.pack(fill="both", expand=1)
