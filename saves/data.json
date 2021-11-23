@@ -1,48 +1,49 @@
 {
-    "name": "asd",
-    "stats": 10,
-    "hp": 100,
-    "atk": 10,
+    "name": "Tor",
+    "stats": 6,
+    "hp": 76,
+    "atk": 16,
     "def": 10,
-    "spd": 10,
+    "spd": 38,
     "luck": 5,
-    "money": 100,
+    "money": 560,
     "bag": {
-        "Hp Potion": 0,
-        "Mp Potion": 0
+        "Hp Potion": 1,
+        "Mp Potion": 0,
+        "Portal Warp": 0
     },
     "redSkills": {
         "Common Bullet Storm": 0,
         "Normal Bullet Storm": 0,
         "Rare Bullet Storm": 0,
-        "Common Precision Strike": 0,
-        "Normal Precision Strike": 0,
-        "Rare Precision Strike": 0,
-        "Common Thunder Bolt": 0,
+        "Common Precision Strike": 1,
+        "Normal Precision Strike": 1,
+        "Rare Precision Strike": 8,
+        "Common Thunder Bolt": 2,
         "Normal Thunder Bolt": 0,
         "Rare Thunder Bolt": 0
     },
     "blueSkills": {
-        "Common Shield": 0,
-        "Normal Shield": 0,
-        "Rare Shield": 0,
-        "Common Spike Shield": 0,
-        "Normal Spike Shield": 0,
-        "Rare Spike Shield": 0
+        "Common Shield": 3,
+        "Normal Shield": 3,
+        "Rare Shield": 2,
+        "Common Spike Shield": 3,
+        "Normal Spike Shield": 2,
+        "Rare Spike Shield": 2
     },
     "greenSkills": {
-        "Common Heal": 0,
+        "Common Heal": 1,
         "Normal Heal": 0,
         "Rare Heal": 0,
-        "Common Attack Up": 0,
+        "Common Attack Up": 3,
         "Normal Attack Up": 0,
         "Rare Attack Up": 0,
-        "Common Armor Up": 0,
+        "Common Armor Up": 2,
         "Normal Armor Up": 0,
         "Rare Armor up": 0,
         "Common Speed Up": 0,
-        "Normal Speed Up": 0,
-        "Rare Speed up": 0
+        "Normal Speed Up": 1,
+        "Rare Speed up": 1
     },
-    "currentHp": 97
+    "currentHp": 157
 }

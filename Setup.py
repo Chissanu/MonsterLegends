@@ -153,11 +153,12 @@ def init_Char(root):
     pyglet.font.add_file(fontPath)
     xBox1, yBox1, xBox2, yBox2 = 100,150,300,200
     create = Frame(root,bg="#000000")
-    label1 = Label(create, text="Create Character",foreground="cyan",font=("alagard", 40))
+    label1 = Label(create, text="Create Character",background="#000000",foreground="cyan",font=("alagard", 40))
     label1.pack(pady=20)
     
     charCreateMenu = Canvas(create, bg="#b1d0f2",height=700,width=400)
     charCreateMenu.create_window(200,100)
+
 
     # Username Text Box
     charCreateName = Entry(root,width=12,font=("alagard 41"), justify='center')

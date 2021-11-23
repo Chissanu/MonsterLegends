@@ -15,8 +15,8 @@ root.attributes('-fullscreen',True)
 
 
 path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
-# bgSound = path + "menu.wav"
-# PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
+bgSound = path + "menu.wav"
+PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
 
 fontPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\Font\\alagard.ttf"
 pyglet.font.add_file(fontPath)

@@ -443,20 +443,28 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     
     # Render bought item name
     buyBox = shopCanvas.create_rectangle(1400, 350, 1900, 500, fill="white",width=5, outline='black')
-    
+    itemName = itemName[:-4]
     if itemName == "Hp Potion":
         Char.buyItem("Hp Potion",20)
     elif itemName == "Mp Potion":
         Char.buyItem("Mp Potion",20)
+    elif itemName == "Portal Warp":
+        Char.buyItem("Portal Warp",50)
     elif itemName == "Red Scroll":
         itemName = Char.buyScroll(Char,"Red Scroll",20)
     elif itemName == "Blue Scroll":
         itemName = Char.buyScroll(Char,"Blue Scroll",20)
     elif itemName == "Green Scroll":
         itemName = Char.buyScroll(Char,"Green Scroll",20)
+        
+    if itemName == "":
+        text = "Not enough money"
+    else:
+        text = "You bought " + itemName
+        
+    buyText = shopCanvas.create_text(1650,420,text="",font=("alagard", 20))
+    printSlowShop(text,buyText,shopCanvas)
     
-    text = "You bought " + itemName
-    buyText = shopCanvas.create_text(1650,420,text=text,font=("alagard", 18))
     root.after(3000, shopCanvas.delete, buyText,buyBox) 
     
     moneyText = "Money: " + str(Char.getMoney()) + "G"
@@ -479,6 +487,8 @@ def shop(root,previousFrame):
     item = Item()
     imgList = {}
     skillList = {}
+    buyBtn = []
+    skillBtn = []
     itemID = 1
     skillID = 1
     x,y = 650 , 160 # Item cords
@@ -513,12 +523,20 @@ def shop(root,previousFrame):
     moneyTextBox = shopCanvas.create_text(960,760,text=moneyText,font=("alagard", 20))
        
     # Render Buy
-    hpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
-    mpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
-    blueBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
-    greenBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
-    redBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
-    backBtn = Button(shopCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
+    for i in item.getItemList():
+        buyBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 10)).place(relx=x2, rely=y2))
+        y2 += 0.075
+    
+    for i in Char.getSkillList():
+        skillBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 10)).place(relx=x2, rely=y2))
+        y2 += 0.075
+        
+    # hpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Hp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2)
+    # mpBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Mp Potion",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.07)
+    # blueBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Blue Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.145)
+    # greenBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Green Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.22)
+    # redBtn = Button(shopCanvas,text=" Buy ",font=("alagard", 15), command= lambda: buy("Red Scroll",item,shopCanvas,moneyTextBox,root)).place(relx=x2, rely=y2 + 0.295)
+    # backBtn = Button(shopCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=735)
     
     # Render Frame and Canvas
     shopFrame.pack(fill="both", expand=1)
@@ -588,7 +606,16 @@ def update(root):
     gameCanvas.itemconfig(playerAtk, text=playerAtkText)
     gameCanvas.itemconfig(playerDef, text=playerDefText)
     gameCanvas.itemconfig(playerSpd, text=playerSpdText)
-    
+
+def printSlowShop(myText,itembox,canvas):
+    delta = 50
+    delay = 0
+    for x in range(len(myText)+1):
+        s = myText[:x]
+        newText = lambda s=s: canvas.itemconfigure(itembox,text=s)
+        canvas.after(delay,newText)
+        delay += delta
+   
 def printSlow(myText):
     delta = 50
     delay = 0
