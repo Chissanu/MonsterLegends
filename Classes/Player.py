@@ -66,6 +66,7 @@ class Player:
         self.redSkills = data["redSkills"]
         self.blueSkills = data["blueSkills"]
         self.greenSkills = data["greenSkills"]
+        self.upgrade = data["upgrade"]
         
         fh.close()
         # Original Stats
@@ -154,7 +155,8 @@ class Player:
                     print("CRI DMG", self.dmgDone)
                     if self.dmgDone == 1:
                         self.dmgDone += 1
-                    Mon.setHp(self.dmgDone)
+                Mon.setHp(self.dmgDone)
+                
             else:
                 self.dmgDone = abs(Mon.getArmor() - self.atk)
                 
@@ -190,16 +192,6 @@ class Player:
                 pass
             else:
                 self.bag[i] = 0
-                
-    # def genUpgrade(self):
-    #     item.genUpgrade1List()
-    #     print("Gening upgrade")
-                 
-    def upgrade(self,cost):
-        item = Item()
-        if self.money >= cost:
-            print("upgraded")
-            
             
                
     def useItem(self,name):

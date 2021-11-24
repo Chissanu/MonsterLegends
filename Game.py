@@ -501,12 +501,13 @@ def shop(root,previousFrame):
     upgradeList = {}
     buyBtn = []
     skillBtn = []
+    upgradeBtn = []
     itemID = 1
     skillID = 1
     upgradeID = 1
-    x,y = 650 , 160 # Item cords
-    x2,y2 = 0.48, 0.135 #  Buy cords
-    x3,y3 = 800, 165 # Item name cords
+    x,y = 600 , 160 # Item cords
+    x2,y2 = 860, 140 #  Buy cords
+    x3,y3 = 750, 165 # Item name cords
     
     # Render Shop GUI
     shopText = shopCanvas.create_text(960,50,text="SHOP",font=("alagard", 40),anchor='center')
@@ -534,34 +535,32 @@ def shop(root,previousFrame):
         skillID += 1
     
     gear = Char.getUpgrade()
-    #print(item.getUpgradeList())
-    print(item.getUpgradeList())
-    
-    for imgs in item.getUpgradeList():
-        if gear[0] == 1:
-            img = PhotoImage(file = item.getUpgrade1Path(imgs)).subsample(4)
-            upgradeList[img] = upgradeID
-            shopCanvas.create_image(x + 380, y3, image=img)
-            shopCanvas.create_text(x3 + 280,y3,text=item.getUpgradeTag(imgs,price),font=("alagard", 20),anchor="w")
-            y += 100
-            y3 += 80
-            upgradeID += 1
-            
-    print("Here2")
-        
-    
+    # Render armor upgrades
+    for imgs in item.genCurrentUpgrade(gear):
+        img = PhotoImage(file = item.getUpgradePath(str(imgs))).subsample(4)
+        upgradeList[img] = upgradeID
+        shopCanvas.create_image(x + 360, y3, image=img)
+        shopCanvas.create_text(x3 + 280,y3,text=item.getUpgradeTag(imgs,20),font=("alagard", 20),anchor="w")
+        y += 100
+        y3 += 80
+        upgradeID += 1
+
     # Render Money
     moneyText = "Money: " + str(Char.getMoney()) + "G"
     moneyTextBox = shopCanvas.create_text(960,760,text=moneyText,font=("alagard", 20))
        
     # Render Buy
     for i in item.getItemList():
-        buyBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
-        y2 += 0.075
+        buyBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(x=x2, y=y2))
+        y2 += 80
     
     for i in Char.getSkillList():
-        skillBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
-        y2 += 0.075
+        skillBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(x=x2, y=y2))
+        y2 += 80
+    
+    for i in item.getUpgradeList():
+        upgradeBtn.append(Button(shopCanvas, text="UPGRADE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(x=x2 + 370, y=y2 - 480))
+        y2 += 80
     
     # Render Frame and Canvas
     shopFrame.pack(fill="both", expand=1)
