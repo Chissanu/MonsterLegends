@@ -1,23 +1,23 @@
 {
-    "name": "Oak",
-    "stats": 8,
-    "hp": 50,
-    "atk": 60,
-    "def": 10,
-    "spd": 46,
-    "luck": 30,
-    "money": 910,
+    "name": "Fourth",
+    "stats": 5,
+    "hp": 44,
+    "atk": 4,
+    "def": 4,
+    "spd": 4,
+    "luck": 89,
+    "money": 180,
     "bag": {
-        "Hp Potion": 0,
+        "Hp Potion": 1,
         "Mp Potion": 0,
-        "Portal Warp": 1
+        "Portal Warp": 0
     },
     "redSkills": {
         "Common Bullet Storm": 0,
         "Normal Bullet Storm": 0,
-        "Rare Bullet Storm": 1,
+        "Rare Bullet Storm": 0,
         "Common Precision Strike": 0,
-        "Normal Precision Strike": 1,
+        "Normal Precision Strike": 0,
         "Rare Precision Strike": 0,
         "Common Thunder Bolt": 0,
         "Normal Thunder Bolt": 0,
@@ -27,7 +27,7 @@
         "Common Shield": 0,
         "Normal Shield": 0,
         "Rare Shield": 0,
-        "Common Spike Shield": 1,
+        "Common Spike Shield": 0,
         "Normal Spike Shield": 0,
         "Rare Spike Shield": 0
     },
@@ -40,10 +40,10 @@
         "Rare Attack Up": 0,
         "Common Armor Up": 0,
         "Normal Armor Up": 0,
-        "Rare Armor up": 1,
+        "Rare Armor up": 0,
         "Common Speed Up": 0,
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 23
+    "currentHp": 44
 }

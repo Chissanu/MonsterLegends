@@ -3,6 +3,7 @@ import Game as game
 from tkinter import *
 from pathlib import Path
 from winsound import *
+from PIL import ImageTk, Image
 import os,pyglet
 
 running = True
@@ -18,9 +19,11 @@ root.attributes('-fullscreen',True)
 # bgSound = path + "menu.wav"
 # PlaySound(bgSound,SND_ASYNC | SND_NOSTOP)
 
+mainicon = PhotoImage(file = 'logo.png')
+root.iconphoto(True, mainicon)
 
 if running:
-    menu.init_menu(root)
-    #game.init_game(root)
+    #menu.init_menu(root)
+    game.init_game(root)
     root.mainloop()
 

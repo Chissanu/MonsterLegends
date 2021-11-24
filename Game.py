@@ -483,7 +483,7 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     save()
 
 def shop(root,previousFrame):
-    global imgList, skillList,startBg,bg
+    global imgList, skillList,upgradeList,startBg,bg
     
     gameFrame.pack_forget()
     shopFrame = Frame(root)
@@ -498,10 +498,12 @@ def shop(root,previousFrame):
     item = Item()
     imgList = {}
     skillList = {}
+    upgradeList = {}
     buyBtn = []
     skillBtn = []
     itemID = 1
     skillID = 1
+    upgradeID = 1
     x,y = 650 , 160 # Item cords
     x2,y2 = 0.48, 0.135 #  Buy cords
     x3,y3 = 800, 165 # Item name cords
@@ -519,19 +521,42 @@ def shop(root,previousFrame):
         else:
             price = 20
         shopCanvas.create_image(x, y, image=img)
-        shopCanvas.create_text(x3,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
+        shopCanvas.create_text(x3,y,text=item.getNameTag(imgs,price),font=("alagard", 20))
         y += 80
-        y3 += 80
         itemID += 1
     
     for imgs in Char.getSkillList():       
         img = PhotoImage(file = Char.getSkillPath(imgs)).subsample(4)
         skillList[img] = skillID
         shopCanvas.create_image(x, y, image=img)
-        shopCanvas.create_text(x3,y3,text = Char.getSkillTag(imgs,20),font=("alagard", 20))
+        shopCanvas.create_text(x3,y,text = Char.getSkillTag(imgs,20),font=("alagard", 20))
         y += 80
-        y3 += 80  
         skillID += 1
+    
+    gear = Char.getUpgrade()
+    #print(item.getUpgradeList())
+    print(item.getUpgradeList())
+    for imgs in item.getUpgradeList():
+        print(imgs)
+        print(gear[0])
+        if gear[0] == 1:
+            img = PhotoImage(file = item.getUpgrade1Path(imgs)).subsample(4)
+            upgradeList[img] = upgradeID
+            shopCanvas.create_image(x + 380, y3, image=img)
+            #shopCanvas.create_text(x3 + 380,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
+            y += 100
+            y3 += 80
+            upgradeID += 1
+    print("Here2")       
+    # for imgs in item.getUpgradeList():       
+    #     img = PhotoImage(file = item.getUpgradePath(imgs)).subsample(4)
+    #     imgList[img] = upgradeID
+    #     shopCanvas.create_image(x + 380, y3, image=img)
+    #     shopCanvas.create_text(x3 + 380,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
+    #     y += 100
+    #     y3 += 80
+    #     upgradeID += 1
+        
     
     # Render Money
     moneyText = "Money: " + str(Char.getMoney()) + "G"
@@ -539,11 +564,11 @@ def shop(root,previousFrame):
        
     # Render Buy
     for i in item.getItemList():
-        buyBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
+        buyBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
         y2 += 0.075
     
     for i in Char.getSkillList():
-        skillBtn.append(Button(shopCanvas, text="USE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
+        skillBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(relx=x2, rely=y2))
         y2 += 0.075
     
     # Render Frame and Canvas

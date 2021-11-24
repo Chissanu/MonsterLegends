@@ -22,6 +22,9 @@ class Player:
         self.round = 0
         self.difficulty = 2
         self.rarity = ""
+        
+        self.upgrades = [1,1,1,1]
+        
         self.status = {
             "Thunder Bolt" : 0,
             "Shield" : 0,
@@ -30,6 +33,8 @@ class Player:
             "Armor"  : 0,
             "Speed"  : 0,
         }
+        
+        
         
         #Load Data
         self.path = Path(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +47,7 @@ class Player:
         self.skillPath = str(self.skillPath) + "\Assets\Skills"
         self.loadChar()
         self.genItem()
+        self.genUpgrade()
         self.allSkills = {**self.redSkills, **self.blueSkills, **self.greenSkills}
         
     def loadChar(self): 
@@ -78,9 +84,7 @@ class Player:
             self.armor = self.armorOG2
             self.spd = self.speedOG
     
-    def tick(self,Mon):
-        
-            
+    def tick(self,Mon):       
         self.round += 1
         for key, val in self.status.items():    
             if self.status[key] > 0:
@@ -187,6 +191,17 @@ class Player:
                 pass
             else:
                 self.bag[i] = 0
+    def genUpgrade(self):
+        item = Item()
+        item.genUpgrade1List()
+        print("Gening upgrade")
+                 
+    def upgrade(self,cost):
+        item = Item()
+        if self.money >= cost:
+            print("upgraded")
+            
+            
                
     def useItem(self,name):
         print("Use ", name)
@@ -442,6 +457,9 @@ class Player:
             self.stats += amount
        
     # Getters
+    def getUpgrade(self):
+        return self.upgrades
+    
     def getStatus(self):
         return self.status
     
@@ -473,7 +491,7 @@ class Player:
         return self.name
     
     def getTotalStats(self):
-        totalStats = (self.hp/4) + self.atkOG2 + self.armorOG + self.speedOG
+        totalStats = (self.hp/4) + self.atkOG2 + self.armorOG + self.speedOG + self.luck
         return totalStats
     
     def getDmgDone(self):
