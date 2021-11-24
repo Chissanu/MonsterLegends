@@ -47,7 +47,6 @@ class Player:
         self.skillPath = str(self.skillPath) + "\Assets\Skills"
         self.loadChar()
         self.genItem()
-        self.genUpgrade()
         self.allSkills = {**self.redSkills, **self.blueSkills, **self.greenSkills}
         
     def loadChar(self): 
@@ -191,10 +190,10 @@ class Player:
                 pass
             else:
                 self.bag[i] = 0
-    def genUpgrade(self):
-        item = Item()
-        item.genUpgrade1List()
-        print("Gening upgrade")
+                
+    # def genUpgrade(self):
+    #     item.genUpgrade1List()
+    #     print("Gening upgrade")
                  
     def upgrade(self,cost):
         item = Item()

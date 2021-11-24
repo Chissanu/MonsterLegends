@@ -12,6 +12,7 @@ class Item:
         self.path = self.path.parent.absolute()
         self.upgradePath = str(self.path) + "\\Assets\\upgrade"
         self.path = str(self.path) + "\\Assets\\Item"
+        self.genUpgrade1List()
     
     # Getters
     def genItemList(self):
@@ -33,7 +34,7 @@ class Item:
         return next(os.walk(self.path), (None, None, []))[2]
     
     def getUpgradeList(self):
-        return next(os.walk(self.upgradePath), (None, None, []))[2]
+        return self.upgradeList
     
     def getItemPath(self,item):
         return self.path + "\\" + item
@@ -59,9 +60,7 @@ class Item:
         return self.name
     
     def getUpgradeTag(self,img,price):
-        self.name = img[:-4] + " " + str(price) + "G"
+        self.name = img[3:-4] + " " + str(price) + "G"
         return self.name
     
-    def getUpgradeList(self):
-        return self.upgradeList
     

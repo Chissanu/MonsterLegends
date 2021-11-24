@@ -536,26 +536,18 @@ def shop(root,previousFrame):
     gear = Char.getUpgrade()
     #print(item.getUpgradeList())
     print(item.getUpgradeList())
+    
     for imgs in item.getUpgradeList():
-        print(imgs)
-        print(gear[0])
         if gear[0] == 1:
             img = PhotoImage(file = item.getUpgrade1Path(imgs)).subsample(4)
             upgradeList[img] = upgradeID
             shopCanvas.create_image(x + 380, y3, image=img)
-            #shopCanvas.create_text(x3 + 380,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
+            shopCanvas.create_text(x3 + 280,y3,text=item.getUpgradeTag(imgs,price),font=("alagard", 20),anchor="w")
             y += 100
             y3 += 80
             upgradeID += 1
-    print("Here2")       
-    # for imgs in item.getUpgradeList():       
-    #     img = PhotoImage(file = item.getUpgradePath(imgs)).subsample(4)
-    #     imgList[img] = upgradeID
-    #     shopCanvas.create_image(x + 380, y3, image=img)
-    #     shopCanvas.create_text(x3 + 380,y3,text=item.getNameTag(imgs,price),font=("alagard", 20))
-    #     y += 100
-    #     y3 += 80
-    #     upgradeID += 1
+            
+    print("Here2")
         
     
     # Render Money

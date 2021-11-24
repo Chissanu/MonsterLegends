@@ -1,14 +1,14 @@
 {
-    "name": "Fourth",
-    "stats": 5,
-    "hp": 44,
-    "atk": 4,
-    "def": 4,
-    "spd": 4,
-    "luck": 89,
-    "money": 180,
+    "name": "asd",
+    "stats": 11,
+    "hp": 100,
+    "atk": 10,
+    "def": 10,
+    "spd": 10,
+    "luck": 5,
+    "money": 30,
     "bag": {
-        "Hp Potion": 1,
+        "Hp Potion": 0,
         "Mp Potion": 0,
         "Portal Warp": 0
     },
@@ -45,5 +45,5 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 44
+    "currentHp": 62
 }
