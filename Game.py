@@ -310,7 +310,8 @@ def bag(root,playerHp,previousFrame):
 
     moneyText = "Money: " + str(Char.getMoney())
     moneyTextBox = bagCanvas.create_text(650,530,text=moneyText,font=("alagard", 20),anchor='center')
-
+    
+    backBtn = Button(bagCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(bagFrame,previousFrame,root)).place(x=1260,y=740)
     bagFrame.pack(fill="both", expand=1)
     bagCanvas.pack(fill="both", expand=1)
     root.bind('<Escape>', lambda e: back(bagFrame,previousFrame,root))
@@ -591,6 +592,8 @@ def shop(root,previousFrame):
     for i in item.getUpgradeList():
         upgradeBtn.append(Button(shopCanvas, text="UPGRADE", command=lambda i=i: upgrade(i,root), font=("alagard", 15)).place(x=x2 + 370, y=y2 - 480))
         y2 += 80
+    
+    backBtn = Button(shopCanvas,text=" Back ",font=("alagard", 15), command= lambda: back(shopFrame,previousFrame,root)).place(x=1260,y=740)
     
     # Render Frame and Canvas
     shopFrame.pack(fill="both", expand=1)
@@ -893,7 +896,7 @@ def game(root):
     bagBtn = Button(gameCanvas, text="BAG",width=10,border=5,command=lambda:bag(root,playerHp,gameFrame),font=("alagard", 20)).place(relx=0.65, rely=0.9)
     skillbtn = Button(gameCanvas, text="SCROLL",width=10,border=5,command=lambda:skill(root,gameFrame),font=("alagard", 20)).place(relx=0.768, rely=0.8)
     runBtn = Button(gameCanvas, text="RUN",width=10,border=5,command=lambda:run(root),font=("alagard", 20)).place(relx=0.768, rely=0.9)
-    saveBtn = Button(gameCanvas, text="Save",command=lambda:save(),width=10,height=4,border=5,font=("alagard", 20)).place(relx=0.89, rely=0.805)
+    saveBtn = Button(gameCanvas, text="SHOP",command=lambda:goToShop(root,gameFrame),width=10,height=4,border=5,font=("alagard", 20)).place(relx=0.89, rely=0.81)
     
     gameFrame.pack(fill="both", expand=1)
     gameCanvas.pack(fill="both", expand=1)

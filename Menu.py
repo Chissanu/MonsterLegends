@@ -34,8 +34,6 @@ def init_menu(root):
     # Background
     startBg = Label(startCanvas,image=bg, borderwidth=0).place(x=0,y=0)
 
-
-
     startBtd = Button(startCanvas,text="Start",font=("alagard", 40),command=lambda:change_to_start(root,startCanvas))
     startBtd.place(relx=0.5, rely=0.3, anchor="center")
     
