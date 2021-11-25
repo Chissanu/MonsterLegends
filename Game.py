@@ -619,18 +619,20 @@ def back(frame,previousFrame,root):
 
 def run(root):
     turn = random.randint(1, Char.getSpd() + Mon.getSpd())
-    if turn <= Char.getSpd() + Char.getLuck():
-        text = "Escape succesfully!"
-        printSlow(text)
-        new(root)
+    if Char.getCurrentHp() >= 0:
+        if turn <= Char.getSpd() + Char.getLuck():
+            text = "Escape succesfully!"
+            printSlow(text)
+            new(root)
+        else:
+            text = "Failed to escape..."
+            dmg = abs(Char.getArmor() - Mon.getAtk())
+            Char.setCurrentHp("dec",dmg)
+            printSlow(text)
     else:
-        text = "Failed to escape..."
-        dmg = abs(Char.getArmor() - Mon.getAtk())
-        Char.setCurrentHp("dec",dmg)
-        printSlow(text)
+        death(root)
     update(root)
         
-
 def playAnimation(root):
     global newPhoto
     path = os.path.dirname(os.path.abspath(__file__))
