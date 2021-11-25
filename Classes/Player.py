@@ -66,7 +66,7 @@ class Player:
         self.redSkills = data["redSkills"]
         self.blueSkills = data["blueSkills"]
         self.greenSkills = data["greenSkills"]
-        self.upgrade = data["upgrade"]
+        self.upgrades = data["upgrades"]
         
         fh.close()
         # Original Stats
@@ -224,6 +224,13 @@ class Player:
                 self.bag[item] += 1
                 self.money -= price
                 
+    def upgradeGear(self,item,price):
+        # if self.money >= price:
+        if self.upgrades[item] < 4:
+            self.upgrades[item] += 1
+            # self.money -= price
+            
+            
     """
     ===============================================================
                             Skills

@@ -2,11 +2,11 @@
     "name": "asd",
     "stats": 10,
     "hp": 100,
-    "atk": 10,
+    "atk": 60,
     "def": 10,
     "spd": 10,
     "luck": 5,
-    "money": 100,
+    "money": 0,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0,
@@ -34,7 +34,7 @@
     "greenSkills": {
         "Common Heal": 0,
         "Normal Heal": 0,
-        "Rare Heal": 0,
+        "Rare Heal": 1,
         "Common Attack Up": 0,
         "Normal Attack Up": 0,
         "Rare Attack Up": 0,
@@ -46,5 +46,10 @@
         "Rare Speed up": 0
     },
     "currentHp": 100,
-    "upgrade": []
+    "upgrades": [
+        1,
+        1,
+        1,
+        1
+    ]
 }

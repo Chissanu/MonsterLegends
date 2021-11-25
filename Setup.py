@@ -132,7 +132,7 @@ def submit(charCreateName,charCreateMenu,root,create):
             "Rare Speed up": 0,
         },
         "currentHp": hp,
-        "upgrade" : []
+        "upgrades" : [1,1,1,1]
     }
     try:
         os.makedirs("saves")

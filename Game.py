@@ -70,27 +70,29 @@ def goToGame(frame,root):
                       Skill Frame
 ===============================================================
 """
-def useSkill(skill,count,root):
+def useSkill(spell,count,root):
     click()
-    Char.useScroll(skill,count,Mon)
+    Char.useScroll(spell,count,Mon)
     update(root)
     text = "You did " + str(Char.getDmgDone()) + " Damage!"
     printSlow(text)
     playerAtkText = "ATK:" + str(Char.getAtk())
-    if "Thunder Bolt" in skill:
-        if "Common" in skill:
+    if "Thunder Bolt" in spell:
+        if "Common" in spell:
             text = "Your Attack has increased by "+ str(10)
             printSlow(text)
-        elif "Normal" in skill:
+        elif "Normal" in spell:
             text = "Your Attack has increased by " + str(20)
             printSlow(text)
-        elif "Rare" in skill:
+        elif "Rare" in spell:
             text = "Your Attack has increased by "+ str(30)
             printSlow(text)
     save()
+    skillFrame.pack_forget()
+    skill(root,gameFrame)
 
 def skill(root,previousFrame):
-    global countText,skillCanvas
+    global countText,skillCanvas,skillFrame
     gameFrame.pack_forget()
     click()
     skillList = {}
@@ -450,7 +452,20 @@ def addPoint(root,previousFrame):
                       Shop Frame
 ===============================================================
 """
-    
+def upgrade(itemName,root):
+    print(itemName)
+    if "helmet" in itemName:
+        Char.upgradeGear(0,50)
+    elif "chestplate" in itemName:
+        Char.upgradeGear(1,50)
+    elif "legging" in itemName:
+        Char.upgradeGear(2,50)
+    elif "boot" in itemName:
+        Char.upgradeGear(3,50)
+
+    shopFrame.pack_forget()
+    shop(root,gameFrame)
+
 def buy(itemName,item,shopCanvas,moneyTextBox,root):   
     # Render bought item name
     buyBox = shopCanvas.create_rectangle(1400, 350, 1900, 500, fill="white",width=5, outline='black')
@@ -483,7 +498,7 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     save()
 
 def shop(root,previousFrame):
-    global imgList, skillList,upgradeList,startBg,bg
+    global imgList, skillList,upgradeList,startBg,bg,shopFrame
     
     gameFrame.pack_forget()
     shopFrame = Frame(root)
@@ -557,9 +572,10 @@ def shop(root,previousFrame):
     for i in Char.getSkillList():
         skillBtn.append(Button(shopCanvas, text="BUY", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(x=x2, y=y2))
         y2 += 80
-    
+        
+    # Render Upgrade
     for i in item.getUpgradeList():
-        upgradeBtn.append(Button(shopCanvas, text="UPGRADE", command=lambda i=i: buy(i,item,shopCanvas,moneyTextBox,root), font=("alagard", 15)).place(x=x2 + 370, y=y2 - 480))
+        upgradeBtn.append(Button(shopCanvas, text="UPGRADE", command=lambda i=i: upgrade(i,root), font=("alagard", 15)).place(x=x2 + 370, y=y2 - 480))
         y2 += 80
     
     # Render Frame and Canvas
