@@ -1,8 +1,9 @@
 ﻿# MonsterLegends
 
 Required Libs
-tkinter
-pygame
+===================== \n
+tkinter \n
+pygame \n
 winsound
 playsound
 pathlib
