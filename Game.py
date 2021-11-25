@@ -148,6 +148,11 @@ def death(root):
     deathFrame = Frame(root)
     deathCanvas = Canvas(deathFrame,bg="#b1d0f2")
     
+    deathPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\dead.wav"
+    
+    deathSound = pg.mixer.Sound(deathPath)
+    deathSound.play()
+    
     bgPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\\Menu\\death.png"
     textPath = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\fancyText\\gameOver.png"
     
