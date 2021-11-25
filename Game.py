@@ -453,7 +453,6 @@ def addPoint(root,previousFrame):
 ===============================================================
 """
 def upgrade(itemName,root):
-    print(itemName)
     if "helmet" in itemName:
         Char.upgradeGear(0,50)
     elif "chestplate" in itemName:
@@ -555,10 +554,11 @@ def shop(root,previousFrame):
         img = PhotoImage(file = item.getUpgradePath(str(imgs))).subsample(4)
         upgradeList[img] = upgradeID
         shopCanvas.create_image(x + 360, y3, image=img)
-        shopCanvas.create_text(x3 + 280,y3,text=item.getUpgradeTag(imgs,20),font=("alagard", 20),anchor="w")
+        shopCanvas.create_text(x3 + 280,y3,text=item.getUpgradeTag(imgs,upgradeID - 1),font=("alagard", 20),anchor="w")
         y += 100
         y3 += 80
         upgradeID += 1
+                
 
     # Render Money
     moneyText = "Money: " + str(Char.getMoney()) + "G"

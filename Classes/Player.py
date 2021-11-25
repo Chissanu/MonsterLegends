@@ -225,10 +225,10 @@ class Player:
                 self.money -= price
                 
     def upgradeGear(self,item,price):
-        # if self.money >= price:
-        if self.upgrades[item] < 4:
-            self.upgrades[item] += 1
-            # self.money -= price
+        if self.money >= price:
+            if self.upgrades[item] < 4:
+                self.upgrades[item] += 1
+                self.money -= price
             
             
     """
@@ -376,7 +376,6 @@ class Player:
                 randSkill = random.choice(skill) #Choose random skills
                 item[randSkill] += 1
                 itemName = randSkill
-                print(itemName)
                 
             elif roll >= 51 and roll <= 80:            
                 skill = [i for i in list(item) if "Normal" in i]

@@ -6,7 +6,7 @@
     "def": 10,
     "spd": 10,
     "luck": 5,
-    "money": 0,
+    "money": 5000,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0,

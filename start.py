@@ -23,7 +23,7 @@ mainicon = PhotoImage(file = 'logo.png')
 root.iconphoto(True, mainicon)
 
 if running:
-    menu.init_menu(root)
-    #game.init_game(root)
+    #menu.init_menu(root)
+    game.init_game(root)
     root.mainloop()
 

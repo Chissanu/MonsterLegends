@@ -12,6 +12,7 @@ class Item:
         self.path = self.path.parent.absolute()
         self.upgradePath = str(self.path) + "\\Assets\\upgrade"
         self.path = str(self.path) + "\\Assets\\Item"
+        self.charCurrGear = []
     
     # Getters
     def genItemList(self):
@@ -22,6 +23,8 @@ class Item:
     
     def genCurrentUpgrade(self,currLv):
         temp = next(os.walk(self.upgradePath), (None, None, []))[2]
+        self.charCurrGear = currLv
+        
         for item in temp:
             # Helmet
             if currLv[0] == 1:
@@ -86,8 +89,18 @@ class Item:
         self.name = img[:-4] + " " + str(price) + "G"
         return self.name
     
-    def getUpgradeTag(self,img,price):
-        self.name = img[3:-4] + " " + str(price) + "G"
+    def getUpgradeTag(self,img,item):
+        price = 50   
+        if self.charCurrGear[item] == 1:
+            price = "50G"
+        elif self.charCurrGear[item] == 2:
+            price = "100G"
+        elif self.charCurrGear[item] == 3:
+            price = "200G"
+        elif self.charCurrGear[item] == 4:
+            price = "MAX"            
+        
+        self.name = img[3:-4] + " " + str(price)
         return self.name
     
     
