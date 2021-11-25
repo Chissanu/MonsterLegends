@@ -2,15 +2,15 @@
 
 Required Libs
 ===================== 
-<br>tkinter<br />
-pygame__
-winsound__
-playsound__
-pathlib__
-os__
-json__
-time__
-math__
-random__
+<br>tkinter<br/>
+<br>pygame<br/>
+<br>winsound<br/>
+<br>playsound<br/>
+<br>pathlib<br/>
+<br>os<br/>
+<br>json<br/>
+<br>time<br/>
+<br>math<br/>
+<br>random<br/>
 
 This project is created by Chissanu Kittipakorn for final project
