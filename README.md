@@ -1,16 +1,16 @@
 ﻿# MonsterLegends
 
 Required Libs
-===================== \n
-tkinter \n
-pygame \n
-winsound
-playsound
-pathlib
-os
-json
-time
-math
-random
+===================== 
+tkinter__
+pygame__
+winsound__
+playsound__
+pathlib__
+os__
+json__
+time__
+math__
+random__
 
 This project is created by Chissanu Kittipakorn for final project
