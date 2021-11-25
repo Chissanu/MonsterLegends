@@ -2,6 +2,7 @@ from Classes.Monster import Monster
 from Classes.Player import Player
 from Classes.Item import Item
 import Setup as char
+import Menu as menu
 from tkinter import *
 from PIL import ImageTk, Image
 from pathlib import Path
@@ -51,20 +52,6 @@ def close_win(root):
     click()
     root.destroy()
         
-def goToGame(frame,root):
-    global startBg,bg
-    save()
-    frame.pack_forget()
-    
-    path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\background\Game\\"
-    
-    bgLink = str(path) + randomBg
-    bg = PhotoImage(file = bgLink)
-    startBg = gameCanvas.create_image(960, 440, image=bg)
-    
-    gameFrame.pack(fill="both", expand=1)
-    root.bind('<Escape>', lambda e: close_win(root))
-
 """
 ===============================================================
                       Skill Frame
@@ -150,9 +137,12 @@ def skill(root,previousFrame):
                        Death Scene
 ===============================================================
 """
-
+def goToMenu(root):
+    deathFrame.pack_forget()
+    menu.init_menu(root)
+    
 def death(root):
-    global text,bg
+    global text,bg,deathFrame
     gameFrame.pack_forget()
     
     deathFrame = Frame(root)
@@ -167,6 +157,7 @@ def death(root):
     text = PhotoImage(file = textPath)
     overText = deathCanvas.create_image(960, 340, image=text)
     
+    startAgain = Button(deathCanvas,text="START AGAIN",command=lambda:goToMenu(root),font=("alagard", 40)).place(x=780,y=750)
     
     deathFrame.pack(fill="both", expand=1)
     deathCanvas.pack(fill="both", expand=1)
@@ -220,7 +211,6 @@ def endGame(root):
     diffText_fg = endCanvas.create_text(1660, 340, text="Choose difficultly!", font=("alagard", 40), fill='white')
     endCanvas.tag_raise(diffText_fg,diffText)
 
-    
     easyBtn = Button(endCanvas, text="Easy",command=lambda:newGame(root,1,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=400)
     medBtn = Button(endCanvas, text="Medium",command=lambda:newGame(root,2,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=480)
     hardBtn = Button(endCanvas, text="Hard",command=lambda:newGame(root,3,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=560)
@@ -228,6 +218,7 @@ def endGame(root):
     shopBtn = Button(endCanvas, text="SHOP",command=lambda:goToShop(root,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=720)
     statBtn = Button(endCanvas, text="STATS",command=lambda:goToStats(root,endFrame),width=30,font=("alagard", 15)).place(x=1500, y=800)
     saveBtn = Button(endCanvas, text="SAVE",command=lambda:save(),width=30,font=("alagard", 15)).place(x=1500, y=880)
+    exitBtn = Button(endCanvas, text="EXIT",command=lambda:close_win(root),width=30,font=("alagard", 15)).place(x=1500, y=960)
 
     endFrame.pack(fill="both", expand=1)
     endCanvas.pack(fill="both", expand=1)

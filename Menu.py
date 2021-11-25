@@ -59,7 +59,10 @@ def change_to_start(root,startCanvas):
 def change_to_load(root,startCanvas):
     click()
     startCanvas.pack_forget()
-    game.init_game(root)
+    try:
+        game.init_game(root)
+    except:
+        char.init_Char(root)
     
 def exit(root):
     click()
