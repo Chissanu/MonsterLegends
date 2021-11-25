@@ -12,7 +12,6 @@ name,stats,hp,atk,armor,spd,luck = "",10,100,10,10,10,5
 
 def click():
     global play
-    print("Clicked")
     path = str(Path(os.path.dirname(os.path.abspath(__file__)))) + "\Assets\\sound\\"
     clickSound = path + "click.wav"
     PlaySound(clickSound,SND_ASYNC)
@@ -55,34 +54,44 @@ def increase(stat,charCreateMenu,remainStatsBox,textBox):
 def decrease(stat,charCreateMenu,remainStatsBox,textBox):
     global stats,hp,atk,armor,spd,luck
     click()
-    stats += 1
+    if stat == "hp":
+        if hp > 1:
+            stats += 1
+            hp -= 1
+            hpText = "Health:" + str(hp)
+            charCreateMenu.itemconfig(textBox, text=hpText)
+            print("Decrease HP by One")
+    elif stat == "atk": 
+        if atk > 1:
+            stats += 1
+            atk -= 1
+            atkText = "Attack:" + str(atk)
+            charCreateMenu.itemconfig(textBox, text=atkText)
+            print("Decrease Attack by One")
+    elif stat == "armor":
+        if armor > 1:
+            stats += 1 
+            armor -= 1
+            defText = "Defend:" + str(armor)
+            charCreateMenu.itemconfig(textBox, text=defText)
+            print("Decrease Armor by One")
+    elif stat == "spd":
+        if spd > 1:
+            stats += 1
+            spd -= 1
+            spdText = "Speed:" + str(spd)
+            charCreateMenu.itemconfig(textBox, text=spdText)
+            print("Decrease Speed by One")
+    elif stat == "luck":
+        if luck > 1:
+            stats += 1
+            luck -= 1
+            luckText = "Luck:" + str(luck)
+            charCreateMenu.itemconfig(textBox, text=luckText)
+            print("Decrease Luck by One")
+            
     remainStatsText = "Remaining:" + str(stats)
     charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
-    if stat == "hp":     
-        hp -= 1
-        hpText = "Health:" + str(hp)
-        charCreateMenu.itemconfig(textBox, text=hpText)
-        print("Decrease HP by One")
-    elif stat == "atk": 
-        atk -= 1
-        atkText = "Attack:" + str(atk)
-        charCreateMenu.itemconfig(textBox, text=atkText)
-        print("Decrease Attack by One")
-    elif stat == "armor": 
-        armor -= 1
-        defText = "Defend:" + str(armor)
-        charCreateMenu.itemconfig(textBox, text=defText)
-        print("Decrease Armor by One")
-    elif stat == "spd": 
-        spd -= 1
-        spdText = "Speed:" + str(spd)
-        charCreateMenu.itemconfig(textBox, text=spdText)
-        print("Decrease Speed by One")
-    elif stat == "luck": 
-        luck -= 1
-        luckText = "Luck:" + str(luck)
-        charCreateMenu.itemconfig(textBox, text=luckText)
-        print("Decrease Luck by One")
 
 def submit(charCreateName,charCreateMenu,root,create):
     click()

@@ -186,7 +186,6 @@ class Player:
     # Player Moves
     def attack(self,Mon):
         self.tick(Mon)
-        print("Changing stats", self.armor)  
         turn = random.randint(1, self.spd + Mon.getSpd())
         #print("Rolled: ",turn)
         if turn <= self.spd + int(self.luck/4):
@@ -220,10 +219,11 @@ class Player:
             else:
                 if (self.armor / 4) - Mon.getAtk() >= 0:
                     self.dmgTaken = 1
-                    self.currentHp -= self.dmgTaken
+                    self.currentHp -= int(self.dmgTaken)
                 else:
-                    self.dmgTaken = abs(self.armor - Mon.getAtk())
-                    self.currentHp -= self.dmgTaken
+                    self.dmgTaken = abs((self.armor/4) - Mon.getAtk())
+                    
+                    self.currentHp -= int(self.dmgTaken)
                 return False
     
     """
@@ -242,7 +242,7 @@ class Player:
             
                
     def useItem(self,name):
-        print("Use ", name)
+        print("Use", name)
         if name == "Hp Potion":
             if self.bag[name] > 0:
                 if self.currentHp <= self.hp:
@@ -258,11 +258,18 @@ class Player:
             print("Use scroll")
             self.bag[name] -= 1
         
-        elif name == "Mp Potion":
-            pass
+        elif name == "Sus Potion":
+            susRoll = random.randint(1,100) + self.luck
+            if susRoll >= 50:
+                self.currentHp += 30
+                print("Heal")
+            else:
+                print("Poisioned")
+                self.currentHp -= 20
+            self.bag[name] -= 1
           
     def buyItem(self,item,price):
-        if item == "Hp Potion" or item == "Mp Potion":
+        if item == "Hp Potion" or item == "Sus Potion":
             if self.money >= price:       
                 self.bag[item] += 1
                 self.money -= price
@@ -558,7 +565,7 @@ class Player:
         return self.dmgDone
     
     def getDmgTaken(self):
-        return self.dmgTaken
+        return int(self.dmgTaken)
     
     def getCurrentHp(self):
         return self.currentHp

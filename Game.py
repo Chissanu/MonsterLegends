@@ -248,11 +248,13 @@ def useItem(itemName,root):
         endGame(root)
     elif itemName == "Hp Potion":
         bagCanvas.itemconfig(hpCount,text=Char.getBag("Hp Potion"))
+    elif itemName == "Sus Potion":
+        bagCanvas.itemconfig(susCount,text=Char.getBag("Sus Potion"))
      
     save()
     
 def bag(root,playerHp,previousFrame):
-    global imgList,bagFrame, bagCanvas, hpCount,mpCount,warpCount
+    global imgList,bagFrame, bagCanvas, hpCount,susCount,warpCount
     gameFrame.pack_forget()
     item = Item()
     imgList = {}
@@ -281,8 +283,8 @@ def bag(root,playerHp,previousFrame):
     
     # Render item counts
     hpCount = bagCanvas.create_text(x3,y3,text=Char.getBag("Hp Potion"),font=("alagard", 20),anchor='center')
-    mpCount = bagCanvas.create_text(x3,y3 + 80,text=Char.getBag("Mp Potion"),font=("alagard", 20),anchor='center')
-    warpCount = bagCanvas.create_text(x3,y3 + 160,text=Char.getBag("Portal Warp"),font=("alagard", 20),anchor='center')
+    susCount = bagCanvas.create_text(x3,y3 + 160,text=Char.getBag("Sus Potion"),font=("alagard", 20),anchor='center')
+    warpCount = bagCanvas.create_text(x3,y3 + 80,text=Char.getBag("Portal Warp"),font=("alagard", 20),anchor='center')
     
     # Render Use Buttons
     for i in item.getItemList():
@@ -323,7 +325,7 @@ def bag(root,playerHp,previousFrame):
 ===============================================================
 """
 def increase(stat,charCreateMenu,remainStatsBox,textBox):
-    global stats,hp,atk,armor,spd,luck
+    click()
     if Char.getStats() >= 1:
         Char.setStats("dec",1)
         remainStatsText = "Remaining:" + str(Char.getStats())
@@ -358,34 +360,45 @@ def increase(stat,charCreateMenu,remainStatsBox,textBox):
     save()
         
 def decrease(stat,charCreateMenu,remainStatsBox,textBox):
-    Char.setStats("inc",1)
+    click()
+    if stat == "hp":
+        if Char.getHp() > 1:
+            Char.setStats("inc",1)  
+            Char.setHp("dec",1)
+            hpText = "Health:" + str(Char.getHp())
+            charCreateMenu.itemconfig(textBox, text=hpText)
+            print("Decrease HP by One")
+    elif stat == "atk":
+        if Char.getAtk() > 1:
+            Char.setAtk("dec",1)
+            Char.setStats("inc",1)
+            atkText = "Attack:" + str(Char.getAtk())
+            charCreateMenu.itemconfig(textBox, text=atkText)
+            print("Decrease Attack by One")
+    elif stat == "armor":
+        if Char.getArmor() > 1:
+            Char.setStats("inc",1)
+            Char.setArmor("dec",1)
+            defText = "Defend:" + str(Char.getArmor())
+            charCreateMenu.itemconfig(textBox, text=defText)
+            print("Decrease Armor by One")
+    elif stat == "spd":
+        if Char.getSpd() > 1:
+            Char.setStats("inc",1)
+            Char.setSpd("dec",1)
+            spdText = "Speed:" + str(Char.getSpd())
+            charCreateMenu.itemconfig(textBox, text=spdText)
+            print("Decrease Speed by One")
+    elif stat == "luck":
+        if Char.getLuck() > 1:
+            Char.setStats("inc",1)
+            Char.setLuck("dec",1)
+            luckText = "Luck:" + str(Char.getLuck())
+            charCreateMenu.itemconfig(textBox, text=luckText)
+            print("Decrease Luck by One")
+        
     remainStatsText = "Remaining:" + str(Char.getStats())
     charCreateMenu.itemconfig(remainStatsBox, text=remainStatsText)
-    if stat == "hp":     
-        Char.setHp("dec",1)
-        hpText = "Health:" + str(Char.getHp())
-        charCreateMenu.itemconfig(textBox, text=hpText)
-        print("Decrease HP by One")
-    elif stat == "atk": 
-        Char.setAtk("dec",1)
-        atkText = "Attack:" + str(Char.getAtk())
-        charCreateMenu.itemconfig(textBox, text=atkText)
-        print("Decrease Attack by One")
-    elif stat == "armor": 
-        Char.setArmor("dec",1)
-        defText = "Defend:" + str(Char.getArmor())
-        charCreateMenu.itemconfig(textBox, text=defText)
-        print("Decrease Armor by One")
-    elif stat == "spd": 
-        Char.setSpd("dec",1)
-        spdText = "Speed:" + str(Char.getSpd())
-        charCreateMenu.itemconfig(textBox, text=spdText)
-        print("Decrease Speed by One")
-    elif stat == "luck": 
-        Char.setLuck("dec",1)
-        luckText = "Luck:" + str(Char.getLuck())
-        charCreateMenu.itemconfig(textBox, text=luckText)
-        print("Decrease Luck by One")
     save()
 
 def addPoint(root,previousFrame):
@@ -473,8 +486,8 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     itemName = itemName[:-4]
     if itemName == "Hp Potion":
         Char.buyItem("Hp Potion",20)
-    elif itemName == "Mp Potion":
-        Char.buyItem("Mp Potion",20)
+    elif itemName == "Sus Potion":
+        Char.buyItem("Sus Potion",20)
     elif itemName == "Portal Warp":
         Char.buyItem("Portal Warp",50)
     elif itemName == "Red Scroll":
@@ -609,7 +622,6 @@ def back(frame,previousFrame,root):
         endBgImg = PhotoImage(file = endLink)
         endBg = endCanvas.create_image(960, 540, image=endBgImg)  
         endCanvas.tag_lower(endBg)
-        print("ENDING")
     except:
         pass
     
@@ -627,7 +639,7 @@ def run(root):
         else:
             text = "Failed to escape..."
             dmg = abs(Char.getArmor() - Mon.getAtk())
-            Char.setCurrentHp("dec",dmg)
+            Char.setCurrentHp("dec",int(dmg))
             printSlow(text)
     else:
         death(root)
@@ -758,7 +770,7 @@ def attack(playerHp,root):
     update(root)
 
 def save():
-    print("Game Saved!")
+    #print("Game Saved!")
     path = os.path.dirname(os.path.abspath(__file__)) + "/saves"
     with open("saves/data.json", "r") as jsonFile:
         data = json.load(jsonFile)
