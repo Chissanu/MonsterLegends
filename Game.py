@@ -464,15 +464,18 @@ def addPoint(root,previousFrame):
 def upgrade(itemName,root):
     if "helmet" in itemName:
         Char.upgradeGear(0,50)
+        text = "Helmet upgraded"
     elif "chestplate" in itemName:
         Char.upgradeGear(1,50)
+        text = "Chestplate upgraded"
     elif "legging" in itemName:
         Char.upgradeGear(2,50)
+        text = "Legging Upgraded"
     elif "boot" in itemName:
         Char.upgradeGear(3,50)
-        
+        text = "Boots Upgraded"
+     
     save()
-    print(Char.getArmor())
     shopFrame.pack_forget()
     shop(root,gameFrame)
 
@@ -481,19 +484,19 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     buyBox = shopCanvas.create_rectangle(1400, 350, 1900, 500, fill="white",width=5, outline='black')
     itemName = itemName[:-4]
     if itemName == "Hp Potion":
-        Char.buyItem("Hp Potion",20)
+        done = Char.buyItem("Hp Potion",20)
     elif itemName == "Sus Potion":
-        Char.buyItem("Sus Potion",20)
+        done = Char.buyItem("Sus Potion",20)
     elif itemName == "Portal Warp":
-        Char.buyItem("Portal Warp",50)
+        done = Char.buyItem("Portal Warp",50)
     elif itemName == "Red Scroll":
         itemName = Char.buyScroll(Char,"Red Scroll",20)
     elif itemName == "Blue Scroll":
         itemName = Char.buyScroll(Char,"Blue Scroll",20)
     elif itemName == "Green Scroll":
         itemName = Char.buyScroll(Char,"Green Scroll",20)
-        
-    if itemName == "":
+    
+    if itemName == "" or done == "":
         text = "Not enough money"
     else:
         text = "You bought " + itemName
@@ -508,7 +511,7 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     save()
 
 def shop(root,previousFrame):
-    global imgList, skillList,upgradeList,startBg,bg,shopFrame
+    global imgList, skillList,upgradeList,startBg,bg,shopFrame,shopCanvas
     
     gameFrame.pack_forget()
     shopFrame = Frame(root)

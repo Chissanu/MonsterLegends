@@ -85,7 +85,6 @@ class Player:
             self.spd = self.speedOG
             
     def updateArmor(self):
-        print("Updating Armor")
         # Helmet
         if self.upgrades[0] == 1:
             self.armor += 5
@@ -269,14 +268,18 @@ class Player:
             self.bag[name] -= 1
           
     def buyItem(self,item,price):
+        done = ""
         if item == "Hp Potion" or item == "Sus Potion":
             if self.money >= price:       
                 self.bag[item] += 1
                 self.money -= price
+                done = "done"
         elif item == "Portal Warp":
             if self.money >= price:       
                 self.bag[item] += 1
                 self.money -= price
+                done = "done"
+        return done
                 
     def upgradeGear(self,item,price):
         if self.upgrades[item] == 1:
