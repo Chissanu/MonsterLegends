@@ -70,7 +70,7 @@ class Player:
         
         fh.close()
         # Original Stats
-                
+        self.updateArmor()       
         self.atkOG = self.atk
         self.armorOG = self.armor
         self.speedOG = self.spd
@@ -83,9 +83,54 @@ class Player:
             self.atk = self.atkOG2
             self.armor = self.armorOG2
             self.spd = self.speedOG
-    
+            
+    def updateArmor(self):
+        print("Updating Armor")
+        # Helmet
+        if self.upgrades[0] == 1:
+            self.armor += 5
+        elif self.upgrades[0] == 2:
+            self.armor += 10
+        elif self.upgrades[0] == 3:
+            self.armor += 15
+        elif self.upgrades[0] == 4:
+            self.armor += 20
+        # Chestplate  
+        if self.upgrades[1] == 1:
+            self.armor += 5
+        elif self.upgrades[1] == 2:
+            self.armor += 10
+        elif self.upgrades[1] == 3:
+            self.armor += 15
+        elif self.upgrades[1] == 4:
+            self.armor += 20
+        # Legging
+        if self.upgrades[2] == 1:
+            self.armor += 5
+        elif self.upgrades[2] == 2:
+            self.armor += 10
+        elif self.upgrades[2] == 3:
+            self.armor += 15
+        elif self.upgrades[2] == 4:
+            self.armor += 20
+        # Boots
+        if self.upgrades[3] == 1:
+            self.armor += 5
+        elif self.upgrades[3] == 2:
+            self.armor += 10
+        elif self.upgrades[3] == 3:
+            self.armor += 15
+        elif self.upgrades[3] == 4:
+            self.armor += 20
+              
     def tick(self,Mon):       
         self.round += 1
+        self.atkOG = self.atk
+        self.armorOG = self.armor
+        self.speedOG = self.spd
+        self.atkOG2 = self.atk
+        self.armorOG2 = self.armor
+        
         for key, val in self.status.items():    
             if self.status[key] > 0:
                 for key, val in self.status.items():
@@ -135,11 +180,13 @@ class Player:
                     self.atk = self.atkOG2
                 if "Speed" in key:
                     self.spd = self.speedOG
+        
                     
         
     # Player Moves
     def attack(self,Mon):
         self.tick(Mon)
+        print("Changing stats", self.armor)  
         turn = random.randint(1, self.spd + Mon.getSpd())
         #print("Rolled: ",turn)
         if turn <= self.spd + int(self.luck/4):
@@ -171,7 +218,7 @@ class Player:
                 print("DODGED!")
                 return "DODGE"
             else:
-                if self.armor - Mon.getAtk() >= 0:
+                if (self.armor / 4) - Mon.getAtk() >= 0:
                     self.dmgTaken = 1
                     self.currentHp -= self.dmgTaken
                 else:
@@ -225,10 +272,26 @@ class Player:
                 self.money -= price
                 
     def upgradeGear(self,item,price):
+        if self.upgrades[item] == 1:
+            price = 50
+        if self.upgrades[item] == 2:
+            price = 100
+        if self.upgrades[item] == 3:
+            price = 200
+        
         if self.money >= price:
             if self.upgrades[item] < 4:
                 self.upgrades[item] += 1
                 self.money -= price
+            if self.upgrades[item] == 1:
+                self.armor += 5
+            if self.upgrades[item] == 2:
+                self.armor += 10
+            if self.upgrades[item] == 3:
+                self.armor += 15
+            if self.upgrades[item] == 4:
+                self.armor += 20
+        
             
             
     """

@@ -461,7 +461,9 @@ def upgrade(itemName,root):
         Char.upgradeGear(2,50)
     elif "boot" in itemName:
         Char.upgradeGear(3,50)
-
+        
+    save()
+    print(Char.getArmor())
     shopFrame.pack_forget()
     shop(root,gameFrame)
 
@@ -749,7 +751,7 @@ def attack(playerHp,root):
         moneyText = "You gained " + str(gainMon) +"G and " + str(gainStat) + " stat point!"
         printSlow(moneyText)
         endGame(root)
-            
+    # print("Changing stats", Char.getArmor())        
     save()
     update(root)
 
@@ -768,6 +770,8 @@ def save():
     data["greenSkills"] = Char.getGreenSkill()
     data["atk"] = Char.getAtk()
     data["spd"] = Char.getSpd()
+    data["def"] = Char.getArmor()
+    data["upgrades"] = Char.getUpgrade()
     
     with open("saves/data.json", "w") as jsonFile:
         json.dump(data, jsonFile,indent=4)

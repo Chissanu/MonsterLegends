@@ -1,12 +1,12 @@
 {
-    "name": "asd",
-    "stats": 10,
-    "hp": 100,
-    "atk": 60,
-    "def": 10,
-    "spd": 10,
-    "luck": 5,
-    "money": 5000,
+    "name": "Test",
+    "stats": 0,
+    "hp": 50,
+    "atk": 90,
+    "def": 125,
+    "spd": 50,
+    "luck": 15,
+    "money": 60,
     "bag": {
         "Hp Potion": 0,
         "Mp Potion": 0,
@@ -15,7 +15,7 @@
     "redSkills": {
         "Common Bullet Storm": 0,
         "Normal Bullet Storm": 0,
-        "Rare Bullet Storm": 0,
+        "Rare Bullet Storm": 1,
         "Common Precision Strike": 0,
         "Normal Precision Strike": 0,
         "Rare Precision Strike": 0,
@@ -34,7 +34,7 @@
     "greenSkills": {
         "Common Heal": 0,
         "Normal Heal": 0,
-        "Rare Heal": 1,
+        "Rare Heal": 0,
         "Common Attack Up": 0,
         "Normal Attack Up": 0,
         "Rare Attack Up": 0,
@@ -45,11 +45,11 @@
         "Normal Speed Up": 0,
         "Rare Speed up": 0
     },
-    "currentHp": 100,
+    "currentHp": -9,
     "upgrades": [
-        1,
-        1,
-        1,
-        1
+        2,
+        2,
+        2,
+        3
     ]
 }
