@@ -491,13 +491,13 @@ def buy(itemName,item,shopCanvas,moneyTextBox,root):
     elif itemName == "Portal Warp":
         done = Char.buyItem("Portal Warp",50)
     elif itemName == "Red Scroll":
-        itemName = Char.buyScroll(Char,"Red Scroll",20)
+        itemName, done = Char.buyScroll(Char,"Red Scroll",20)
     elif itemName == "Blue Scroll":
-        itemName = Char.buyScroll(Char,"Blue Scroll",20)
+        itemName, done = Char.buyScroll(Char,"Blue Scroll",20)
     elif itemName == "Green Scroll":
-        itemName = Char.buyScroll(Char,"Green Scroll",20)
-    
-    if itemName == "" or done == "":
+        itemName, done = Char.buyScroll(Char,"Green Scroll",20)
+        
+    if done == "":
         text = "Not enough money"
     else:
         text = "You bought " + itemName

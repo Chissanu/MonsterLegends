@@ -268,19 +268,20 @@ class Player:
             self.bag[name] -= 1
           
     def buyItem(self,item,price):
-        done = ""
         if item == "Hp Potion" or item == "Sus Potion":
             if self.money >= price:       
                 self.bag[item] += 1
                 self.money -= price
-                done = "done"
+                return item
+            else:
+                return ""
         elif item == "Portal Warp":
             if self.money >= price:       
                 self.bag[item] += 1
                 self.money -= price
-                done = "done"
-        return done
-                
+                return item
+            else:
+                return ""
     def upgradeGear(self,item,price):
         if self.upgrades[item] == 1:
             price = 50
@@ -432,6 +433,7 @@ class Player:
         temp = random.randint(1,100)
         roll = temp + (int(Char.getLuck()) / 2) # Increase chance of getting better item
         temp = random.randint(1,100)
+        done = ""
         itemName = ""
         if self.money >= price:
             self.money -= 20
@@ -460,15 +462,17 @@ class Player:
                 skill = [i for i in list(item) if "Rare" in i]
                 randSkill = random.choice(skill)
                 item[randSkill] += 1
-                itemName = randSkill
-            
+                itemName = randSkill        
             if item == "Red Scroll":
                 self.redSkills = item
             elif item == "Blue Scroll":
                 self.blueSkills = item
             elif item == "Green Scroll":
                 self.GreenSkills = item
-        return itemName
+        else:
+            pass
+        
+        return itemName, done
         
     
     # Setters
